@@ -141,6 +141,14 @@ class educationForm(FlaskForm):
     submit = SubmitField("add")
 
 
+class certificationForm(FlaskForm):
+    certification = StringField("your ceritification: ", validators=[DataRequired()])
+    certification_description = TextAreaField("certification description:")
+    certification_url = StringField("your certification URL: ", validators=[DataRequired()])
+    date_token = DateField("date token: ", validators=[DataRequired()], format='%Y-%m-%d')
+    submit = SubmitField("add")
+
+
 
 # Routes
 @app.route('/', methods=['GET', 'POST'])
@@ -344,11 +352,14 @@ def update(id, foc):
     experienceFormhmtl = experiencForm()
     langaugFormhtml = langaugForm()
     educationFormhtml = educationForm()
+    certificationFormhtml = certificationForm()
 
     current_skills = Skills.query.filter(Skills.id == current_user.id).all()
     current_experiencs = experiencs.query.filter(experiencs.id == current_user.id).all()
     current_langauges = langauges.query.filter(langauges.id == current_user.id).all()
     current_education = education.query.filter(education.id == current_user.id).all()
+
+    current_certifications = Certifications2.query.filter(Certifications2.freelancer_id == current_user.id).all()
 
     if foc==1:
         user_to_update = freelancers.query.get_or_404(id)
@@ -397,7 +408,25 @@ def update(id, foc):
         educationFormhtml.sectore.data =""
         educationFormhtml.degree.data = ""
         flash(f"education add successfully! for the user with the username: {user_to_update.email}")
-    
+
+    if certificationFormhtml.validate_on_submit():
+        new_certification = Certifications2(
+            freelancer_id=user_to_update.id,
+            certification=certificationFormhtml.certification.data,
+            certification_description=certificationFormhtml.certification_description.data,
+            certification_url=certificationFormhtml.certification_url.data,
+            date_token=certificationFormhtml.date_token.data
+        )
+        db.session.add(new_certification)
+        db.session.commit()
+        certificationFormhtml.certification.data = ""
+        certificationFormhtml.certification_description.data = ""
+        certificationFormhtml.certification_url.data = ""
+        certificationFormhtml.date_token.data = ""
+        flash(f"Certification added successfully for the user with the username: {user_to_update.email}")
+
+
+
     login = True
 
 
@@ -406,11 +435,14 @@ def update(id, foc):
         langaugForm=langaugFormhtml, 
         educationForm=educationFormhtml, 
         user_to_update=user_to_update,
+        certificationForm = certificationFormhtml,
         login=login,
         current_skills=current_skills,
         current_experiencs=current_experiencs,
         current_langauges=current_langauges,
-        current_education=current_education)
+        current_education=current_education,
+        current_certifications=current_certifications
+        )
 
 @app.route('/add_langauges/', methods=['GET', 'POST'])
 @login_required
@@ -479,6 +511,20 @@ def delet_educaiton(id):
         db.session.delete(education_to_delet)
         db.session.commit()
         flash(f"education deleted successfully!")
+    except:
+        flash("whoops! somthing went worng.")    
+    login = True
+    return redirect(url_for('update', id=current_user.id, foc =1) )
+
+
+@app.route('/delet_ceretificaion/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delet_certificaiton(id):
+    certificaion_to_delet = Certifications2.query.get_or_404(id)
+    try:
+        db.session.delete(certificaion_to_delet)
+        db.session.commit()
+        flash(f"Certification deleted successfully!")
     except:
         flash("whoops! somthing went worng.")    
     login = True
@@ -944,6 +990,17 @@ class Submitted(db.Model):
     id =                db.Column(db.Integer, ForeignKey('freelancers.id'), nullable=False)
 
 
+    date_token = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Certifications2(db.Model):
+    certification_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    freelancer_id = db.Column(db.Integer, db.ForeignKey('freelancers.id'), nullable=True)
+    certification = db.Column(db.String(50),  nullable=False)
+    certification_description = db.Column(db.Text)
+    certification_url = db.Column(db.String(50),  nullable=False)
+    date_token = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 
 # Create an application context and initialize the database
 with app.app_context():
@@ -956,6 +1013,24 @@ def print_all_tables():
     for table in tables:
         print(table)
     return "finish"
+
+
+
+
+
+# # Function to drop the Users table
+# def drop_users_table():
+#     try:
+#         Certifications2.__table__.drop(db.engine)
+#         print("Table 'Certifications2' has been dropped.")
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
+
+
+# with app.app_context():
+#     drop_users_table()
+
+
 
 # if __name__ == '__main__':
 #     with app.app_context():
@@ -1123,23 +1198,28 @@ def add_sample_data():
         application_id=application.application_id,
         id=freelancer.id
     )
+  # Add a certification
+    certification = certifications(
+        freelancer_id=1,  # Replace with the appropriate freelancer_id
+        certification="Certified Python Developer",
+        certification_description="Certification for advanced proficiency in Python.",
+        certification_url="https://example.com/certified-python-developer",
+        date_token=datetime(2023, 7, 1)
+    )
+    db.session.add(certification)
+    db.session.commit()
+    print("Certification added successfully!")
     db.session.add(submission)
     db.session.commit()
     return "every goood . HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH..................EVERY THING IS GOOD!!!!!!!!!"
+# 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+# if __name__ == '__main__':
+#     with app.app_context():
+#         add_sample_data()
 
 
 

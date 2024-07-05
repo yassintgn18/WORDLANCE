@@ -226,6 +226,79 @@
            
                 {{educationForm.submit(class="btn btn-primary")}}
             </form>
+
+
+            <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 40px 100px;border-radius: 20px;padding-top: 100px;">
+
+                {{ certificationForm.hidden_tag() }}
+                 <h4>Certificaions:</h4>
+                                 <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;">
+
+                {% for ce in current_certifications %}
+
+                    <p style="  color:rgb(71, 64, 70);
+                                padding-right:25px;
+                                padding-left:10px;
+                                border: 2px solid rgb(228, 228, 228);
+                                border-radius: 20px;
+                                background-color: rgb(228, 228, 228);
+                                margin: 0px 7px;
+                                margin-bottom: 40px;
+                                position: relative;">   
+
+                        {{ce.certification}}
+                   
+
+                                        <a href="{{url_for('delet_certificaiton', id=ce.certification_id)}}">
+                                            <img src="{{ url_for('static', filename='images/remove.png') }}" alt="Example Image" width="10px" style="border-radius:0px;
+                                              position: absolute;
+                            top: 0px;  /* Adjust as needed */
+                            right: 10px;  /* Adjust as needed */
+                           
+                            border: none;
+                            border: 1px solid gray;
+                            cursor: pointer;
+                            background-color: gray;
+                            border-radius: 10px;
+                            margin-left: 5px;">    
+
+                                        </a> </p>
+
+                {% endfor %}</div>
+
+
+
+                <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom: 20px;">
+
+
+                   
+
+                    
+                
+                    {{ certificationForm.certification(class="form-control CW", placeholder="certification")}}
+                    
+                 
+                    {{ certificationForm.certification_description(class="form-control CW", placeholder="certification description")}}
+                    
+                    
+                
+                    {{ certificationForm.certification_url(class="form-control CW", placeholder="certification url")}}
+                </div>
+
+                <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom: 20px;">
+
+                
+
+                    {{ certificationForm.date_token(class="form-control CW")}}
+                    
+                  
+                </div>
+                    
+                    
+                    
+           
+                {{certificationForm.submit(class="btn btn-primary")}}
+            </form>
         </div>
 
     </center>
