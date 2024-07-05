@@ -1,0 +1,150 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+	<style>
+		
+        .chat-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+		.chat-messages {
+			flex: 1;
+			padding: 10px;
+			overflow-y: auto;
+		}
+		.sender {
+			background-color: #dcf8c6;
+			float: right;
+			text-align: right;
+		}
+		.sender:hover {
+            background-color: #c8e6c9; /* Change this color to whatever you prefer for the hover effect */
+        }
+		.message .timestamp {
+			display: block;
+			font-size: 0.75em;
+			color: #888;
+			margin-top: 15px;
+			float: right;
+			text-align: right;
+			padding-left: 30px;
+		}
+		.receiver {
+			background-color: #fff;
+			border: 1px solid #ddd;
+			float: left;
+			text-align: left;
+		}
+		.chat-input {
+			display: flex;
+			border-top: 1px solid #ddd;
+		}
+		.chat-input input {
+			flex: 1;
+			padding: 10px;
+			border: none;
+			outline: none;
+		}
+		.chat-input button {
+			padding: 10px;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			cursor: pointer;
+		}
+
+		
+		.message {
+		    margin: 10px 0;
+		    padding: 10px;
+		    border-radius: 10px;
+		    max-width: 70%;
+		    margin-right: 50px;
+		    clear: both;
+		    position: relative;
+		    display: inline-block;
+		}
+		.message .timestamp {
+		    display: block;
+		    font-size: 0.75em;
+		    color: #888;
+		    margin-top: 15px;
+		    float: right;
+		    text-align: right;
+		    padding-left: 30px;
+		}
+
+
+	</style>
+
+	
+    <div>
+        <H1  class="display-3" style="font-family: 'Gill Sans', sans-serif; position: absolute;left: 30px;">Messages</H1>
+       
+
+        <form action="{{url_for('search')}}" novalidate method="POST" class="d-flex" role="search" style="max-width:300px;position: absolute;left: 30px;top: 150px;padding-top: 12px;">
+            {{ form.hidden_tag() }}
+            {{ form.email(class="form-control me-2", placeholder="Search")}}
+            <br>
+            {{ form.search(class="btn btn-dark ") }}
+        </form>
+
+		<ul style="max-width:300px;position: absolute;left: 30px;top: 210px;color: black;z-index: 10;">
+                {% for u in users_search%}
+                        <!-- <li>
+                            {{u.email}}
+                        </li>-->
+
+
+                          <li style="margin-left: 0;padding: 10px 0px;">
+		                    <div   style="background-color: #bfdbf7; border-radius: 10px; padding: 12px 0px;padding-right: 30px;"> 
+		                        <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;color: black;">
+		                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+		                                <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
+		                                <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
+		                            </div>
+		                        </a>
+		                    </div>
+		                </li>
+                {% endfor %} 
+		</ul>
+
+
+		<div class="container" style="max-width:290px;background-color: white;position: absolute;left: 20px;top: 200px;height: 69%;padding: 0;width: 600px;margin: 0px;">  
+		    <ul>
+		        {% for u in users%}
+		            {% if not u.id == current_user.id %}
+		                <li style="margin-left: 0;padding: 10px 0px;">
+		                    <div   style="background-color: #bfdbf7; border-radius: 10px; padding: 12px 0px;padding-right: 30px;"> 
+		                        <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;color: black;">
+		                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+		                                <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
+		                                <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
+		                            </div>
+		                        </a>
+		                    </div>
+		                </li>
+		            {% endif %}
+		        {% endfor %} 
+		    </ul>
+		</div>
+    </div>
+
+
+    <div style="position: absolute;top: 40%;left: 40%;border: 1px solid black;padding: 50px;border-radius: 20px;">
+    	<h1>WORDLanc Convirsations</h1>
+    	<center >
+    		you will find your convirsations here
+    	</center>
+    </div>
+
+{% endblock %}

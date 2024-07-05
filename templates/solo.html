@@ -1,0 +1,31 @@
+{% extends "Base.html" %}
+
+{% block title %}Title Here{% endblock %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	<div class="alert alert-warning alert-dismissible fade show alertmy" role="alert">
+		{{ message }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endfor %}
+	<center>
+		<h1>solo profile</h1><br><br><br>
+
+		<div style="display: flex;flex-direction: row;justify-content: space-around;">
+			<h2>Username: {{user.username}}</h2>  
+			<br>
+			
+
+        	<a href="{{ url_for('update_user', id=user.id )}}" style="font-size: 17px;margin-left: 80px;margin-bottom: 20px;width: 200px;" class="btn btn-dark btn-sm">Update user......</a>
+      
+        	<a href="{{ url_for('delet_user', id=user.id )}}" style="font-size: 17px;margin-left: 80px;margin-bottom: 20px;width: 200px;" class="btn btn-outline-warning btn-sm">Delet user!!!</a>
+
+		</div>
+		
+		
+
+	  
+	</center>
+{% endblock content %}

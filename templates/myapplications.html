@@ -1,0 +1,55 @@
+{% extends "Base.html" %}
+
+{% block content %}
+    {% for message in get_flashed_messages() %}
+        
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+            <center>{{ message }}</center>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}<br>
+    <center>
+        <style type="text/css">
+            .CW {
+                width: 400px;
+            }
+        </style>
+    
+            <h3 class="text-primary"style="margin-top: 60px;">Your job Applicaitons...</h3><br><br>
+            
+            <div>
+                <h1>Clients Info:</h1>
+                <h2>{{email}}</h2>
+                <h2>{{firstname}}</h2>
+                <h2>{{lastname}}</h2>
+                <h2>{{succeces}}</h2>
+                <h2>{{address}}</h2>
+                <h2>{{gender}}</h2>
+                <h2>{{birthdate}}</h2>
+
+                <table border="1" style="border-collapse: separate; border-spacing: 10px;" class="table table-hover">
+                    <tr>
+                        
+                        <th>job_id</th>
+                        <th>freelancer id</th>
+                        <th>freelancer Email</th>
+                        <th>date Applyed</th>
+                    </tr>
+                    {% for info in data %}
+                        <tr>
+                            <td>{{ info.job_id }}</td>
+                            <td>{{ info.id }}</td>
+                            <td>{{ info.email }}</td>
+                            <td>{{ info.applied_at }}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                </table> 
+            </div>
+            <h2>your jobs id:</h2>
+            {% for info in you_jobs_id %}
+                {{info}}
+            {% endfor %}
+        
+    </center>
+{% endblock content %}

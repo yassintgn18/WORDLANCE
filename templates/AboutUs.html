@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | WeatherPredict</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>flask porjt</title>
+        <link rel="stylesheet"
+        href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+        integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+        crossorigin="anonymous"
+        origin="anonymous"/>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            color: rgb(14, 45, 78);
+
+
+            background-image: url('/static/images/bg.jpg'); /* Path to your background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        header {
+            background: rgba(14, 45, 78, 0.8);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container1 {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .about {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 1px solid rgb(14, 45, 78);
+        }
+        .about h1, .about h2 {
+            color: rgb(14, 45, 78);
+        }
+        .about p {
+            line-height: 1.6;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .feature-item {
+            flex: 1;
+            padding: 20px;
+            background: rgba(52, 79, 174, 0.9);
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid rgb(14, 45, 78);
+        }
+        .contact {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            border: 1px solid rgb(14, 45, 78);
+        }
+        footer {
+            background: rgba(14, 45, 78, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        a {
+            color: rgb(14, 45, 78);
+            text-decoration: none;
+        }
+
+
+            
+
+        @media screen and (max-width: 768px) {
+             body {
+                background-image: url('C:\Users\E14\Desktop\python_in_web\static\images\pexels-pixabay-209831.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: rgb(52, 58, 64);
+               
+            }
+
+            title{
+                text-align: center;
+            }
+            th {
+                color: black;
+                font-size: 22px;
+            }
+            td {
+                font-size: 18PX;
+                margin-left: 5px;
+                
+            }
+            .container {
+                border-radius: 25% 10%;
+                background-color: red;
+                width: 400PX;
+                height: 400PX;
+                background: transparent;
+            }
+            h3 {
+                padding: 30PX 30PX;
+            }
+            .fot_white {
+                color: white;
+            }
+            .labelh {
+                width: 300PX;
+                margin-right: 29PX;
+            }
+            .myform {
+                display: flex;
+                flex-direction: column;
+       
+            }
+            
+            .date {
+                display: flex;
+                border: none;
+            }
+            table {
+                width: 100%;
+                border: 3px solid gray;
+            }
+            th, td {
+                padding: 10px;
+            }
+            th {
+                border-right: 2px solid rgb(170, 170, 170);
+            }
+            td:not(:last-child),
+            th:not(:last-child) {
+                border-right: 5px solid rgb(193, 193, 193);
+            }
+            .nav {
+                display: flex;
+                font-family: 'aria-describedby';
+                list-style: none;
+                text-decoration: underline;
+
+
+            }
+            .nav li {
+                border: none;
+                color: black;
+                font-size: 18PX;
+                font-family: Arial;
+            }
+          
+            
+
+            .nav1 {
+                display: flex;
+              
+                margin-top: 40px;
+                font-family: 'aria-describedby';
+                border: none;
+            }
+            .nav1 li {
+               
+                margin-left: 50PX;
+      
+                color: black;
+                font-size: 18PX;transition: 0.5s;
+                font-family: sans-serif;
+            }
+            
+            
+            .infos {
+                max-height:70PX;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                font-size: 30PX;
+            }
+            
+            .row {
+                width: 100%;
+                padding:  50PX 0PX; 
+                margin: 0 0px;
+            }
+            body {
+                color: black;
+                background-image: url('ninja.webp'); /* Background image */
+                background-size: cover; /* Image covers the entire background */
+                background-position: center; /* Image is centered */
+                background-repeat: no-repeat;            }
+            .bo {
+                width: 95px;
+                height: 30px;
+                font-size: 15px;
+                margin-top: 20px;
+                margin-left: 20px;
+                font-weight: bold;
+            }
+            
+            .ma {
+                width: 95px;
+                height: 30px;
+                font-size: 15px;
+                margin-top: 20px;
+
+                font-weight: bold;
+            }
+            .cloud_cover {
+                width: 150px;
+            }
+            .bo:hover {
+                color: black;
+                color: rgb(45, 216, 42);
+            }
+            .ma:hover {
+                color: black;
+                color: rgb(220, 53, 69);
+            }
+            .bo {
+                border: 3px solid rgb(35, 208, 35);
+                border-radius: 5px;
+            }
+            .ma {
+                border: 3px solid rgb(220, 53, 69);
+                border-radius: 5px;
+                margin-right: 20px;
+            }
+            .jour {
+                padding: 0%;
+                position: relative;
+                top: 5px;
+                left: 70px;
+                
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;                color: rgb(255, 85, 0);
+            }
+            .tp {
+                padding: 0%;
+                position: relative;
+                top: 15px;
+                left: 70px;
+                margin-bottom: 20PX;
+                font-size: 21PX;
+                
+                font-family: cursive;                color: rgb(201, 156, 133);
+            }
+            .bm {
+                padding: 0px 30px;
+            }
+            #right {
+                width: 95px;
+                height: 28px;
+                font-size: 15px;
+                margin-top: 20px;
+                font-weight: bold;
+                border: 3px solid rgb(211, 44, 44);
+                border-radius: 5px;
+                padding: 4PX 13px;
+              
+                transition: 0.25s;
+
+            }
+            #left {
+                width: 95px;
+                height: 28px;
+                font-size: 15px;
+                margin-top: 20px;
+                font-weight: bold;
+                border: 3px solid rgb(35, 208, 35);
+                border-radius: 5px;
+                transition: 0.25s;
+                padding: 4PX 13px;
+                
+            }
+            
+            #left:hover{
+                background-color: rgb(160, 160, 160);
+                color: rgb(50, 74, 57);
+                border: 3px solid rgb(13, 255, 13);
+
+                
+            }
+            #right:hover{
+                background-color: rgb(160, 160, 160);
+                color: rgb(80, 44, 44);
+                border: 3px solid rgb(255, 0, 30);
+
+                
+            }
+            .username {
+                padding: 0%;
+                position: absolute;
+                top: 180px;
+                color: white;
+                font-size: 17px;
+                margin: 10px 0;
+                left: 70px;
+                
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;                color: rgb(255, 244, 238);
+            }
+            #icon {
+                cursor: pointer;
+                position: absolute;
+                top: 30px;
+                right: 40px;
+            }
+            .mynav li {
+                font-size: 18px;
+                padding: 0 12PX;
+            }
+            .ro {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .alertmy {
+                position: absolute;
+                width: 100%;
+            }
+            /* .container {
+                border-left: 2px solid black;
+
+                border-right: 2px solid black;
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+
+            } */
+
+            th{
+                font-family: Arial, Helvetica, sans-serif;
+                color: white;
+            border:  none;            }
+            .link:hover {
+                text-decoration: underline;
+            }
+
+
+           
+
+
+            .container {
+                /* Set background properties */
+                background-color: rgb(43, 47, 50);
+                color: white; /* Make text white for contrast */
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Add text shadow for readability */
+                padding: 20px;
+                text-align: center;
+            }
+
+            body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/images/bg.jpg'); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 1; /* Adjust this value to control the opacity */
+    z-index: -1; /* Place the overlay behind the body content */
+    pointer-events: none; /* Ensure it doesn't interfere with user interactions */
+}
+
+.big {
+    display: none; /* Show desktop text */
+}
+.small {
+    display: block;
+}
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 769px) {
+    body {
+                background-image: url('C:\Users\E14\Desktop\python_in_web\static\images\pexels-pixabay-209831.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-color: rgb(52, 58, 64);               
+            }
+
+            title{
+                text-align: center;
+            }
+            th {
+                color: black;
+                font-size: 22px;
+            }
+            td {
+                font-size: 18PX;
+                margin-left: 5px;
+                
+            }
+            .container {
+                border-radius: 25% 10%;
+                background-color: red;
+                width: 400PX;
+                height: 400PX;
+                background: transparent;
+            }
+            h3 {
+                padding: 30PX 30PX;
+            }
+            .fot_white {
+                color: white;
+            }
+            .labelh {
+                width: 300PX;
+                margin-right: 29PX;
+            }
+            .myform {
+                display: flex;
+                flex-direction: column;
+       
+            }
+            
+            .date {
+                display: flex;
+                border: none;
+            }
+            table {
+                width: 100%;
+                border: 3px solid gray;
+            }
+            th, td {
+                padding: 10px;
+            }
+            th {
+                border-right: 2px solid rgb(170, 170, 170);
+            }
+            td:not(:last-child),
+            th:not(:last-child) {
+                border-right: 5px solid rgb(193, 193, 193);
+            }
+            .nav {
+                display: flex;
+                font-family: 'aria-describedby';
+                list-style: none;
+                text-decoration: underline;
+
+
+            }
+            .nav li {
+                border: none;
+                color: black;
+                font-size: 18PX;
+                font-family: Arial;
+            }
+          
+            
+
+            .nav1 {
+                display: flex;
+              
+                margin-top: 40px;
+                font-family: 'aria-describedby';
+                border: none;
+            }
+            .nav1 li {
+               
+                margin-left: 50PX;
+      
+                color: black;
+                font-size: 18PX;transition: 0.5s;
+                font-family: sans-serif;
+            }
+            
+            
+            .infos {
+                max-height:70PX;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                font-size: 30PX;
+            }
+            
+            .row {
+                width: 100%;
+                padding:  50PX 0PX; 
+                margin: 0 0px;
+            }
+            body {
+                color: black;
+                background-image: url('ninja.webp'); /* Background image */
+                background-size: cover; /* Image covers the entire background */
+                background-position: center; /* Image is centered */
+                background-repeat: no-repeat;            }
+            .bo {
+                width: 95px;
+                height: 30px;
+                font-size: 15px;
+                margin-top: 20px;
+                margin-left: 20px;
+                font-weight: bold;
+            }
+            
+            .ma {
+                width: 95px;
+                height: 30px;
+                font-size: 15px;
+                margin-top: 20px;
+
+                font-weight: bold;
+            }
+            .cloud_cover {
+                width: 150px;
+            }
+            .bo:hover {
+                color: black;
+                color: rgb(45, 216, 42);
+            }
+            .ma:hover {
+                color: black;
+                color: rgb(220, 53, 69);
+            }
+            .bo {
+                border: 3px solid rgb(35, 208, 35);
+                border-radius: 5px;
+            }
+            .ma {
+                border: 3px solid rgb(220, 53, 69);
+                border-radius: 5px;
+                margin-right: 20px;
+            }
+            .jour {
+                padding: 0%;
+                position: relative;
+                top: 15px;
+                left: 70px;
+                
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;                color: rgb(255, 85, 0);
+            }
+            .tp {
+                padding: 0%;
+                position: relative;
+                top: 15px;
+                left: 70px;
+                margin-bottom: 20PX;
+                font-size: 21PX;
+                
+                font-family: cursive;                color: rgb(201, 156, 133);
+            }
+            .bm {
+                padding: 0px 30px;
+            }
+            #right {
+                width: 95px;
+                height: 28px;
+                font-size: 15px;
+                margin-top: 20px;
+                font-weight: bold;
+                border: 3px solid rgb(211, 44, 44);
+                border-radius: 5px;
+                padding: 4PX 13px;
+              
+                transition: 0.25s;
+
+            }
+            #left {
+                width: 95px;
+                height: 28px;
+                font-size: 15px;
+                margin-top: 20px;
+                font-weight: bold;
+                border: 3px solid rgb(35, 208, 35);
+                border-radius: 5px;
+                transition: 0.25s;
+                padding: 4PX 13px;
+                
+            }
+            
+            #left:hover{
+                background-color: rgb(160, 160, 160);
+                color: rgb(50, 74, 57);
+                border: 3px solid rgb(13, 255, 13);
+
+                
+            }
+            #right:hover{
+                background-color: rgb(160, 160, 160);
+                color: rgb(80, 44, 44);
+                border: 3px solid rgb(255, 0, 30);
+
+                
+            }
+            .username {
+                padding: 0%;
+                position: absolute;
+                top: 180px;
+                color: white;
+                font-size: 17px;
+                margin: 10px 0;
+                left: 70px;
+                
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;                color: rgb(255, 244, 238);
+            }
+            #icon {
+                cursor: pointer;
+                position: absolute;
+                top: 30px;
+                right: 40px;
+            }
+            .mynav li {
+                font-size: 18px;
+                padding: 0 12PX;
+            }
+            .ro {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .alertmy {
+                position: absolute;
+                width: 100%;
+            }
+            /* .container {
+                border-left: 2px solid black;
+
+                border-right: 2px solid black;
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+
+            } */
+
+            th{
+                font-family: Arial, Helvetica, sans-serif;
+                color: white;
+            border:  none;            }
+            .link:hover {
+                text-decoration: underline;
+            }.foggy {
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.88);
+    border: 2px solid hwb(0 52% 48%);
+    border-radius: 10px;}
+
+
+           
+
+
+            .container {
+                /* Set background properties */
+                background-color: rgb(43, 47, 50);
+                color: white; /* Make text white for contrast */
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Add text shadow for readability */
+                padding: 20px;
+                text-align: center;
+            }
+
+            body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/images/bg.jpg'); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 1; /* Adjust this value to control the opacity */
+    z-index: -1; /* Place the overlay behind the body content */
+    pointer-events: none; /* Ensure it doesn't interfere with user interactions */
+}
+.small {
+    display: none; /* Show desktop text */
+}
+.big {
+    display: block;
+}
+/* Hide the ul by default */
+#navbarToggleExternalContent .navbar-nav {
+            display: none;
+        }
+
+        /* Show the ul when the collapse is shown */
+        #navbarToggleExternalContent.collapse.show .navbar-nav {
+            display: block;
+        }
+}
+            
+           
+
+            
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary big">
+            <div class="container-fluid foggy">
+
+              <a class="navbar-brand link" href="#">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active link" aria-current="page" href="{{ url_for('home')}}">Home</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      days
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Monday</a></li>
+                      <li><a class="dropdown-item" href="#">Tuesday</a></li>
+                      <li><a class="dropdown-item" href="#">Wednesday</a></li>
+                      <li><a class="dropdown-item" href="#">Thursday</a></li>
+                      <li><a class="dropdown-item" href="#">Friday</a></li>
+                      <li><a class="dropdown-item" href="#">Saturda</a></li>
+                      <li><a class="dropdown-item" href="#">Sunday</a></li>
+
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">preview days</a></li>
+                    </ul>
+                  </li>
+
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link link" href="{{ url_for('login')}}">login</a>
+  
+                </li>
+                <li class="nav-item">
+                <a class="nav-link link"  href="{{ url_for('signin')}}">Signin</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link"  href="{{ url_for('aboutus')}}">About Us</a>
+                  
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-secondary" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+        </nav>
+
+
+        <span class="small">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-dark p-4">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item"><h4>
+                      <a class="nav-link active link" aria-current="page" href="{{ url_for('home')}}">Home</a></h4>
+                    </li>
+                    <li class="nav-item dropdown"><h6>
+                      <a class="nav-link dropdown-toggle link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        days
+                      </a></h6>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Monday</a></li>
+                        <li><a class="dropdown-item" href="#">Tuesday</a></li>
+                        <li><a class="dropdown-item" href="#">Wednesday</a></li>
+                        <li><a class="dropdown-item" href="#">Thursday</a></li>
+                        <li><a class="dropdown-item" href="#">Friday</a></li>
+                        <li><a class="dropdown-item" href="#">Saturda</a></li>
+                        <li><a class="dropdown-item" href="#">Sunday</a></li>
+  
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">preview days</a></li>
+                      </ul>
+                    </li>
+  
+                  </li>
+                  
+                  <li class="nav-item"><h6>
+                      <a class="nav-link link" href="{{ url_for('login')}}">login</a>
+                    </h6>
+                  </li>
+                  <li class="nav-item"><h6>
+                  <a class="nav-link link"  href="{{ url_for('signin')}}">Signin</a>
+                </h6>
+                  </li>
+                  <li class="nav-item"><h6>
+                    <a class="nav-link link"  href="{{ url_for('aboutus')}}">About Us</a>
+                  </h6>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
+        </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <header>
+        <h1>About Us</h1>
+        <p>Your Personalized Weather Experience</p>
+    </header>
+    <div class="container1">
+        <div class="about">
+            <h1>Welcome to WeatherPredict</h1>
+            <p>At WeatherPredict, we blend the latest in meteorological data with cutting-edge machine learning to forecast not just the weather, but how much you'll enjoy it.</p>
+        </div>
+        <div class="about">
+            <h2>Our Mission</h2>
+            <p>Our mission is simple: to provide accurate and personalized weather predictions that help you plan your day with confidence. Whether you're heading to work, planning a picnic, or just deciding what to wear, WeatherPredict is here to ensure you know exactly what to expect from the weather and how it might impact your mood and activities.</p>
+        </div>
+        <div class="about">
+            <h2>How It Works</h2>
+            <p>WeatherPredict leverages advanced data analytics and machine learning to forecast the probability of you enjoying the weather on any given day. Here's how we do it:</p>
+            <ul>
+                <li><strong>Data Collection:</strong> We gather real-time weather data from reliable sources like Open-Meteo, including temperature, cloud cover, precipitation, wind speed, and humidity.</li>
+                <li><strong>User Feedback:</strong> By analyzing historical data and user feedback, we understand how different weather conditions affect people's moods and activities.</li>
+                <li><strong>Machine Learning:</strong> Our sophisticated Random Forest Classifier model processes this data to predict the likelihood of good or bad weather experiences for you, based on your personal preferences and past feedback.</li>
+                <li><strong>Personalized Forecasts:</strong> We present you with a detailed weather forecast, along with the probability of you having a good or bad day based on the weather conditions.</li>
+            </ul>
+        </div>
+        <div class="about">
+            <h2>Our Features</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <h3>Real-Time Weather Updates</h3>
+                    <p>Stay updated with the latest weather conditions and forecasts.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Personalized Insights</h3>
+                    <p>Receive tailored predictions about how much you'll enjoy the weather each day.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Historical Data Analysis</h3>
+                    <p>Review your past weather experiences to see patterns and trends.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>User-Friendly Interface</h3>
+                    <p>Navigate our platform with ease and get the information you need quickly.</p>
+                </div>
+            </div>
+        </div>
+        <div class="about">
+            <h2>Meet the Team</h2>
+            <p>We are a group of passionate data scientists, meteorologists, and software developers dedicated to making weather forecasting more personal and useful for everyone. Our combined expertise ensures that you receive the most accurate and relevant weather predictions possible.</p>
+        </div>
+        <div class="contact">
+            <h2>Join Us</h2>
+            <p>Sign up today and start receiving personalized weather predictions that help you make the most of every day, rain or shine!</p>
+            <h2>Contact Us</h2>
+            <p>Have questions or feedback? We'd love to hear from you! Reach out to us at <a href="mailto:contact@weatherpredict.com">contact@weatherpredict.com</a> or follow us on our social media channels.</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 WeatherPredict. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,188 @@
+{% extends "Base2.html" %}
+
+{% block title %}Météo Marrakech{% endblock %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+        <center>{{ message }}</center>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<center>
+    <div style="border: 1px solid gray; border-radius: 20px; width: 650px;">
+
+        <style type="text/css">
+            .CW {width: 400px;}
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+            }
+            tr {
+                margin: 0px 15px;
+            }
+        </style>
+
+        <h3 class="text-primary" style="margin-top: 90px;">Join as a Client or Freelancer</h3><br>
+
+        <form id="selectionForm" action="/signin" method="POST">
+            <div style="display:flex; flex-direction: row; justify-content: center;">
+                <div class="formch">
+                    <input type="radio" id="client" name="choice" value="client">
+                    <label for="client" id="client_style">Client</label><br>
+                </div>
+
+                <div class="formch">
+                    <input type="radio" id="freelancer" name="choice" value="freelancer">
+                    <label for="freelancer" id="freelancer_style">Freelancer</label><br>
+                </div>
+            </div>
+            <input type="submit" value="Next" id="submitButton">
+        </form>
+    </div>
+
+    <!-- Form for Clients -->
+    <form id="clientForm" action="/signin_client" novalidate method="POST" style="display: none;">
+        {{ client_form.hidden_tag() }}
+
+        {{ client_form.email.label(class="form-label form-label fot_white") }}
+        {{ client_form.email(class="form-control CW") }}<br>
+        {{ client_form.password.label(class="form-label form-label fot_white") }}
+        {{ client_form.password(class="form-control CW") }}<br>
+        {{ client_form.firstname.label(class="form-label form-label fot_white") }}
+        {{ client_form.firstname(class="form-control CW") }}<br>
+        {{ client_form.lastname.label(class="form-label form-label fot_white") }}
+        {{ client_form.lastname(class="form-control CW") }}<br>
+        {{ client_form.address.label(class="form-label form-label fot_white") }}
+        {{ client_form.address(class="form-control CW") }}<br>
+        {{ client_form.phone_num.label(class="form-label form-label fot_white") }}
+        {{ client_form.phone_num(class="form-control CW") }}<br>
+        {{ client_form.company.label(class="form-label form-label fot_white") }}
+        {{ client_form.company(class="form-control CW") }}<br>
+        {{ client_form.geneder.label(class="form-label form-label fot_white") }}
+        {{ client_form.geneder(class="form-control CW") }}<br>
+        {{ client_form.birthdate.label(class="form-label form-label fot_white") }}
+        {{ client_form.birthdate(class="form-control CW") }}<br>
+        
+        {{ client_form.submit(class="btn btn-primary") }}
+    </form>
+
+
+    <!-- Form for Freelancers -->
+    <form id="freelancerForm" action="/signin_freelancer" novalidate method="POST" style="display: none;">
+        {{ freelancer_form.hidden_tag() }}
+
+        {{ freelancer_form.email.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.email(class="form-control CW") }}<br>
+
+        {{ freelancer_form.password.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.password(class="form-control CW") }}<br>
+
+        {{ freelancer_form.firstname.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.firstname(class="form-control CW") }}<br>
+
+        {{ freelancer_form.lastname.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.lastname(class="form-control CW") }}<br>
+
+        {{ freelancer_form.phone_num.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.phone_num(class="form-control CW") }}<br>
+
+        {{ freelancer_form.succeces.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.succeces(class="form-control CW") }}<br>
+
+        {{ freelancer_form.address.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.address(class="form-control CW") }}<br>
+
+        {{ freelancer_form.company.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.company(class="form-control CW") }}<br>
+
+        {{ freelancer_form.gender.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.gender(class="form-control CW") }}<br>
+
+        {{ freelancer_form.self_intro.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.self_intro(class="form-control CW") }}<br>
+
+        {{ freelancer_form.profile_title.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.profile_title(class="form-control CW") }}<br>
+
+        {{ freelancer_form.price_of_work_for_hour.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.price_of_work_for_hour(class="form-control CW") }}<br>
+
+        {{ freelancer_form.birthdate.label(class="form-label form-label fot_white") }}
+        {{ freelancer_form.birthdate(class="form-control CW") }}<br>
+        
+        {{ freelancer_form.submit(class="btn btn-primary") }}
+    </form>
+
+
+<script>
+    const clientRadio = document.getElementById('client');
+    const freelancerRadio = document.getElementById('freelancer');
+    const submitButton = document.getElementById('submitButton');
+
+    clientRadio.addEventListener('change', function() {
+        if (clientRadio.checked) {
+            submitButton.value = 'Sign Up as a Client';
+        }
+    });
+
+    freelancerRadio.addEventListener('change', function() {
+        if (freelancerRadio.checked) {
+            submitButton.value = 'Sign Up as a Freelancer';
+        }
+    });
+
+    document.getElementById('selectionForm').onsubmit = function(event) {
+        event.preventDefault();
+
+        var clientForm = document.getElementById('clientForm');
+        var freelancerForm = document.getElementById('freelancerForm');
+
+        if (document.getElementById('client').checked) {
+            clientForm.style.display = 'block';
+            freelancerForm.style.display = 'none';
+            selectionForm.style.display = 'none';
+
+        } else if (document.getElementById('freelancer').checked) {
+            freelancerForm.style.display = 'block';
+            clientForm.style.display = 'none';
+            selectionForm.style.display = 'none';
+        }
+    };
+
+    
+
+ 
+
+
+
+
+   
+
+
+</script>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

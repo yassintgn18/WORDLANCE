@@ -1,0 +1,234 @@
+{% extends "Base2.html" %}
+
+{% block title %}Météo Marrakech{% endblock %}
+
+{% block content %}
+	{% for message in get_flashed_messages() %}
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;position: absolute;width: 100%;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+
+	<center>
+        <style>
+            .chat-messages {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+            }
+             .chat-messages {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+            }
+            .message {
+                margin: 10px 0;
+                padding: 10px;
+                border-radius: 10px;
+                max-width: 70%;
+                margin-right: 50px;
+                clear: both;
+                position: relative;
+                display: inline-block;
+            }
+            .message .timestamp {
+                display: block;
+                font-size: 0.75em;
+                color: #888;
+                margin-top: 15px;
+                float: right;
+                text-align: right;
+                padding-left: 30px;
+            }
+            .chat-container {
+                padding-left: 370px;                
+                margin: 0 auto;
+                border: 1px solid #ddd;
+                border-radius: 20px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                background-color: #fff;
+                display: flex;
+                flex-direction: column;
+                min-height: 580px;
+            }
+            .chat-header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .chat-messages {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+            }
+            .chat-messages {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+            }
+            .sender {
+                background-color: #dcf8c6;
+                float: right;
+                text-align: right;
+            }
+            .sender:hover {
+                background-color: #c8e6c9; /* Change this color to whatever you prefer for the hover effect */
+            }
+            .message .timestamp {
+                display: block;
+                font-size: 0.75em;
+                color: #888;
+                margin-top: 15px;
+                float: right;
+                text-align: right;
+                padding-left: 30px;
+            }
+            .receiver {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                float: left;
+                text-align: left;
+            }
+            .chat-input {
+                display: flex;
+                border-top: 1px solid #ddd;
+            }
+            .chat-input input {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                outline: none;
+            }
+            .chat-input button {
+                padding: 10px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+        </style>
+
+
+        <div>
+            <H1  class="display-3" style="font-family: 'Gill Sans', sans-serif; position: absolute;left: 30px;">Messages</H1>
+
+            <form action="{{url_for('search')}}" novalidate method="POST" class="d-flex" role="search" style="max-width:300px;position: absolute;left: 30px;top: 150px;padding-top: 12px;">
+                {{ form2.hidden_tag() }}
+                {{ form2.email(class="form-control me-2", placeholder="Search")}}
+                <br>
+                {{ form2.search(class="btn btn-dark ") }}
+            </form>
+
+
+            <ul style="max-width:300px;position: absolute;left: 30px;top: 210px;color: black;z-index: 10;">
+                {% for u in users_search%}
+                        <!-- <li>
+                            {{u.email}}
+                        </li>-->
+
+
+                          <li class="user">
+                            <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;">
+                                <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+                                    <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
+                                    <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
+                                </div>
+                            </a>
+                        </li>
+                {% endfor %} 
+            </ul>
+
+    
+            <div class="container" style="max-width:290px;background-color: white;position: absolute;left: 30px;top: 200px;height: 69%;border-radius: 40px;padding: 0;width: 600px;border: none;">
+                 <ul>
+                    {% for u in users%}
+                        {% if not u.id == current_user.id %}
+                            <li style="margin-left: 0;padding: 10px 0px;">
+                                <div   style="background-color: #bfdbf7; border-radius: 10px; padding: 12px 0px;padding-right: 30px;"> 
+                                    <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;color: black;">
+                                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+                                            <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
+                                            <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %} 
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="chat-container" style="height: 10px; overflow-y: auto;max-width: 1000px;width: 950px;border: none;display: flex;float: left;">
+
+            <div class="chat-header" style="display: flex;flex-direction: row;justify-content: center;align-items: center;background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;" >
+
+                <span class="material-symbols-outlined" style="font-size:35px; color: purple;">
+                    <a href=" {{url_for('my_profile', user_id=receiver_id)}}" style="color: purple;padding-right: 19px;">  account_circle</a>
+                      
+                </span>
+                <span   style="background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;float: left;padding-right: 350px;">
+                    {{user_connect_with_now.email}}
+                </span>
+            </div>
+
+
+
+
+            <div class="chat-messages" id="chatMessages" style="border: 1px solid gray; border-bottom: none;">
+                {% for message in messages %}
+                    {% if message.is_sender %}
+                        <div class="message sender">
+                            {{ message.content }}
+                            <span class="timestamp">{{ message.date_posted.strftime('%H:%M')  }}</span>
+                        </div>
+                    {% else %}
+                        <div class="message receiver">
+                            {{ message.content }}
+                            <span class="timestamp">{{ message.date_posted.strftime('%H:%M')  }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+          
+
+
+
+            <div class="chat-input" style="display: flex; flex-direction: row; padding: 10px;">
+                <form id="chatForm" novalidate method="POST" style="display: flex; flex-direction: row; width: 100%;">
+                    {{ form.hidden_tag() }}
+                    {{ form.content(class="form-control CW input_message", placeholder="Type a message...", style="flex: 1 1 80%; margin-right: 10px;") }}
+                    <br>
+                    {{ form.submit(class="btn btn-primary send_button", style="flex: 0 0 20%;") }}
+                </form>
+            </div> 
+
+        </div>
+
+
+    <script>
+        // Function to scroll to the bottom of the chat container
+        function scrollToBottom() {
+            var chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Scroll to the bottom when the page loads
+        window.onload = scrollToBottom;
+    </script>
+
+
+        
+    </center>
+{% endblock content%}
+
+
+
+

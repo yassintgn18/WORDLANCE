@@ -1,0 +1,44 @@
+{% extends "Base.html" %}
+
+{% block title %}Météo Marrakech{% endblock %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+	  <center>{{ message }}</center>
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	
+{% endfor %}
+
+    <center>
+        <style type="text/css">
+            .CW {
+                width: 400px;
+            }
+        </style>
+       {% if username %}
+            <h1>{{username}} Exist in Our DataBase!!!</H1>
+        {% else %}
+            <h1>{{username}} Dont Exist in Our DataBase!!!</h1>
+        {% endif %}
+
+        <h3 class="text-primary"style="margin-top: 90px;">Signin ...</h3>
+        <br>
+        <form novalidate method="POST">
+
+            {{ form.hidden_tag() }}
+            
+            {{form.username.label(class="form-label form-label fot_white")}}
+            {{ form.username(class="form-control CW") }}
+            
+            <br>
+            {{form.submit(class="btn btn-primary")}}
+        </form>
+    </center>
+      
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends "Base.html" %}
+
+{% block title %}Météo Marrakech{% endblock %}
+
+{% block content %}
+	{% for message in get_flashed_messages() %}
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+
+	<center>
+        <style type="text/css">
+            .CW {
+                width: 400px;
+            }
+        </style>
+    
+        <h3 class="text-primary"style="margin-top: 90px;">Update User ...</h3>
+        <br>
+        <form novalidate method="POST">
+
+            {{ form.hidden_tag() }}
+
+            <H4>Job Offers: </H4>
+            
+            {{form.title.label(class="form-label form-label fot_white")}}
+            {{ form.title(class="form-control CW")}}
+            <br>
+            {{form.description.label(class="form-label form-label fot_white")}}
+            {{ form.description(class="form-control CW")}}
+            <br>            
+            {{form.budget.label(class="form-label form-label fot_white")}}
+            {{ form.budget(class="form-control CW")}}
+            <br>
+            {{form.location.label(class="form-label form-label fot_white")}}
+            {{ form.location(class="form-control CW")}}
+            <br>
+            {{form.submit(class="btn btn-primary")}}
+        </form>
+    </center>
+
+
+{% endblock content %}
+
+
+
+

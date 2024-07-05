@@ -1,0 +1,122 @@
+{% extends "Base.html" %}
+
+{% block content %}
+	{% for message in get_flashed_messages() %}
+
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+<br>
+	<center class="kk">
+        <div style="border: 1px solid gray; border-radius: 20PX; width: 650px;">
+            <style type="text/css">
+                .CW {
+                    width: 400px;
+                }
+                body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-visitor-skinny-wrapper {
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-visitor-skinny {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-visitor {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.up-footer-copyright {
+    margin: 0;
+    font-size: 14px;
+}
+
+.up-footer-decoration {
+    margin: 0 5px;
+}
+
+.up-footer-link {
+    color: white;
+    text-decoration: none;
+}
+
+.up-footer-link:hover {
+    text-decoration: underline;
+}
+            </style>
+        
+            <h3 class="text-primary"style="margin-top: 60px;font-family: cursive;">Log in to <strong style="font-size: 25px;color: #632ba3;">WORDLance</strong></h3>
+            <br>
+            <form novalidate method="POST">
+
+                {{ form.hidden_tag() }}
+                
+                {{ form.email(class="form-control CW", placeholder="Username or Email") }}
+                <br>
+                {{ form.password(class="form-control CW", placeholder="Password") }}
+                <br>
+                {{form.submit(class="btn btn-success cs")}}
+            </form>
+            <br>
+            <div class="line-with-text">
+                <hr class="line">
+                <span class="text">or</span>
+                <hr class="line">
+            </div>
+
+
+            <div style="display:flex;flex-direction: column;align-items: center;
+            justify-content: center;">
+                <button class="form-control" style="max-width: 400px;background-color: rgb(66, 133, 244);color: white; height: 46px; padding: 0%;font-family: 'Gill Sans', sans-serif;"><img src="{{url_for('static', filename='google.png')}}" style="width: 32px;height: 32px;padding: 0%;margin: 0%;background-color: white;border-radius: 5px; margin: 5px 0px;margin-right: 50px;left: 0%;position: relative;">Continue with Google</button>
+                <br>
+                <button class="form-control"  style="max-width: 400px;background-color: rgb(255, 254, 255);color: black; height: 46px; padding: 0%;font-family: 'Gill Sans', sans-serif;border-color: black;border: 2px solid black;">Continue with Apple</button>
+            </div>
+            
+            <br>
+            <br>
+            <br>
+            
+
+
+
+            <div class="line-with-text">
+                <hr class="line" style="margin: 0%;padding: 0%;">
+                <span class="text" style="font-size:15px;min-width: 180px;padding: 0%;">Don't have an account?</span>
+                <hr class="line" style="margin: 0%;padding: 0%;">
+            </div>
+
+            <button  class="btn btn-outline-success" style="max-width: 400px;padding: 5px 40px;"><a href="{{ url_for('signin')}}" style="color: black;">Sign Up</a></button>
+            <br>
+            <br>
+
+
+
+
+        </div>
+
+    </center>
+
+
+{% endblock content %}
+
+
+
+

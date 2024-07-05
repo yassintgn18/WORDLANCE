@@ -1,0 +1,185 @@
+{% extends "Base.html" %}
+
+{% block content %}
+	{% for message in get_flashed_messages() %}
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+<br>
+	<center>
+        <div>
+            <style type="text/css">
+                .CW {
+                    width: 400px;
+                }
+            </style>
+           
+          
+        
+            <h3 class="text-primary"style="margin-top: 60px;">Test storing data...{{current_user.id}}</h3><br><br>
+            <div>
+                <div>
+                    <h1>Freelancers Infos:</h1>
+                    <table border="1" style="border-collapse: separate; border-spacing: 10px;" class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Company</th>
+                            <th>Gender</th>
+                            <th>Birth Date</th>
+                            <th>Date Created</th>
+                            <th>Skills</th>
+                            <th>Experiences</th>
+                        </tr>
+                        {% for info in freelancers_infos %}
+                            <tr>
+                                <td>{{ info.id }}</td>
+                                <td>{{ info.firstname }}</td>
+                                <td>{{ info.lastname }}</td>
+                                <td><a href="{{ url_for('update', id=info.id, foc=1)}}">{{ info.email }}</a></td>
+                                <td>{{ info.password }}</td>
+                                <td>{{ info.address }}</td>
+                                <td>{{ info.phone_num }}</td>
+                                <td>{{ info.company }}</td>
+                                <td>{{ info.gender }}</td>
+                                <td>{{ info.birthdate }}</td>
+                                <td>{{ info.date_created }}</td>
+                                <td>
+                                    <table border="1" style="border-collapse: separate; border-spacing: 5px;" class="table table-hover">
+                                        <tr>
+                                            <th>Skill Name</th>
+                                            <th>Proficiency Level</th>
+                                        </tr>
+                                        {% for skill in skills %}
+                                            {% if skill.id == info.id %}
+                                                <tr>
+                                                    <td>{{ skill.skill_name }}</td>
+                                                    <td>{{ skill.proficiency_level }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                                <td>
+                                    <table border="1" style="border-collapse: separate; border-spacing: 5px;" class="table table-hover">
+                                        <tr>
+                                            <th>Experience</th>
+                                            <th>Experience Duration</th>
+                                        </tr>
+                                        {% for experience in experiencs %}
+                                            {% if experience.id == info.id %}
+                                                <tr>
+                                                    <td>{{ experience.experienc }}</td>
+                                                    <td>{{ experience.experienc_duration }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                                <td><a href="{{ url_for('send_message', sender_client_id=current_user.id, receiver_client_id=info.id)}}">Connect</a>  </td> 
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+                <div>
+                    <h1>Cleints Infos:</h1>
+                    <table border="1" style="border-collapse: separate; border-spacing: 10px;" class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Company</th>
+                            <th>Gender</th>
+                            <th>Birth Date</th>
+                            <th>Date Created</th>
+                        </tr>
+                        {% for info in clients_infos %}
+                            <tr>
+                                <td>{{ info.id }}</td>
+                                <td>{{ info.firstname }}</td>
+                                <td>{{ info.lastname }}</td>
+                                <td><a href="{{ url_for('update', id=info.id, foc=2)}}"> {{ info.email }}</a>  </td> 
+                                <td>{{ info.password }}</td>
+                                <td>{{ info.address }}</td>
+                                <td>{{ info.phone_num }}</td>
+                                <td>{{ info.company }}</td>
+                                <td>{{ info.gender }}</td>
+                                <td>{{ info.birthdate }}</td>
+                                <td>{{ info.date_created }}</td>
+
+                                <td>
+                                    <table border="1" style="border-collapse: separate; border-spacing: 5px;" class="table table-hover">
+                                        <tr>
+                                            <th>Job Title</th>
+                                            <th>Job Description</th>
+                                            <th>Job Dudget</th>
+                                            <th>Job Location</th>
+                                            <th>Date Posted</th>
+
+                                        </tr>
+                                        {% for job in jo %}
+                                            {% if job.id == info.id %}
+                                                <tr>
+                                                    <td>{{ job.title }}</td>
+                                                    <td>{{ job.description }}</td>
+                                                    <td>{{ job.budget }}</td>
+                                                    <td>{{ job.location }}</td>
+                                                    <td>{{ job.date_posted }}</td>
+                                                    <td> <button> <a href="{{url_for('freelancer_application', job_id=job.id, freelancer_id=current_user.id)}}">apply</a>  </button></td>
+                                                   
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                                <td><a href="{{ url_for('job_offer', id=info.id)}}">Offer a Job!!</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+  
+
+                <br><br><br><br>
+
+                {% for job in jo %}
+
+                    <div class="card text-bg-success mb-3 p-3 mb-2 bg-dark text-white" style="max-width: 800px; border-radius: 20px;">
+                      <div class="card-header" style="font-family: cursive; font-size: 30px;">{{ job.title }}</div>
+                      <div class="card-body">
+                        <h5 class="card-title" style="font-family: sans-serif;">budget: {{ job.budget }}</h5>
+                        <p class="card-text"  style="font-family: sans-serif;">Job Description: {{ job.description }}<br>
+                         location: {{ job.location }}<br>
+                            <p   style="font-family: sans-serif;">Date Posted: {{ job.date_posted }}</p>
+                        </p>
+                      </div>
+                    </div>
+                {% endfor %}
+
+        </div>
+    </center>
+
+
+{% endblock content %}
+
+
+
+
+Gracias por tu mensaje. Ha sido enviado.
+Se produjo un error al intentar enviar su mensaje. Por favor, inténtelo de nuevo más tarde.
+One or more fields have an error. Please check and try again.

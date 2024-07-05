@@ -1,0 +1,248 @@
+{% extends "Base.html" %}
+
+{% block content %}
+
+
+	{% for message in get_flashed_messages() %}
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+    <style>
+        h6:hover {  
+            color: purple;
+        }
+        h5:hover {
+            color: #9d4edd;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid rgb(255, 255, 255);
+        }
+        img:hover {
+            border-color: purple;
+        }
+    </style>
+
+
+
+
+ 
+
+
+    <div class="row" style="padding: 0pc;margin: 0px;">
+        <div class="col-7" style="margin-left:100px; border-radius: 15px;margin-top: 10px;">
+
+
+        <div id="carouselExampleDark" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="{{ url_for('static', filename='images/1.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">    
+
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>First slide label</h5>
+                    <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">    
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>Second slide label</h5>
+                    <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ url_for('static', filename='images/3.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">    
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>Third slide label</h5>
+                    <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+            <span></span>
+        </div>
+
+        <div class="col-3" style=" margin-left: 30px; margin-top: 20px;">
+            <div class="row" style="padding-top: 20px;padding-bottom: 10px;background-color: #e9ecef;border-radius: 15px;">
+                <div class="col-sm-4">            
+                    <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Example Image" width="80px" style="border-radius: 50%; 
+                    background-color: #6a4c93;">    
+                </div>
+                <div class="col-sm-8"> 
+
+                    <a href="#" style="color:black;text-decoration: underline;padding: 0px;margin: 0px;   font-family: 'Neue Montreal', Arial, sans-serif;
+                    ;">
+                        <h5 style="font-size: 24px; color:#212529;" id="profile_name">{{user.firstname}} {{user.lastname}}</h5>
+                    </a>
+                    <p style="padding: 0px;margin: 0px;font-size: 18px">{{user.profile_title}}</p>
+
+                    <p style="padding: 0px;margin: 0px;">rate: {{user.rate}}</p>
+
+                    <p style="padding: 0px;margin: 0px;">success: {{user.succeces}}%</p>
+                </div>
+                <a href="{{ url_for('update', id=current_user.id, foc=1)}}" style="font-size: 14px;color: purple;text-shadow: none;text-decoration: underline;padding-bottom: 10px;margin-top: 20px;">        Complet your profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form class="d-flex" role="search" style="max-width:60%;margin-left: 85px;padding-top: 30px;padding-bottom: 40px;">
+        <input class="form-control me-2" type="search" placeholder="Search for a jobs" aria-label="Search" style="border-radius:30px;">
+
+    </form>
+
+
+
+    <h1 class="display-6 heading" style="margin-left: 85px;font-size: 27px;">Jobs you might like</h1>
+
+    <span style="display: flex;flex-direction: row; margin-left: 85px;">
+
+        {% if home == 1%}
+            <h6 style="margin-left: 125px;font-size: 17;margin-bottom: 20px;padding-top: 20PX;margin-left: 40px;">
+                <a href="{{url_for('home1')}}" style="font-size: 18px;text-decoration: underline;color: rgb(99, 43, 163);">
+                    <b>
+                        Best Matches
+                    </b>
+                </a>
+            </h6>  
+        {% else %}
+           <h6 style="margin-left: 125px;font-size: 17;margin-bottom: 20px;padding-top: 20PX;margin-left: 40px;">
+                <a href="{{url_for('home1')}}" style="font-size: 18px;text-decoration: underline;color: black;">
+                    <b>
+                        Best Matches
+                    </b>
+                </a>
+            </h6> 
+        {% endif %}
+
+
+         {% if home == 2%}
+            <h6 style="margin-left: 125px;font-size: 17;margin-bottom: 20px;padding-top: 20PX;margin-left: 40px;">
+                <a href="{{url_for('home2')}}" style="font-size: 18px;text-decoration: underline;color: rgb(99, 43, 163);">
+                    <b>
+                        Most_recent
+                    </b>
+                </a>
+            </h6>  
+        {% else %}
+           <h6 style="margin-left: 125px;font-size: 17;margin-bottom: 20px;padding-top: 20PX;margin-left: 40px;">
+                <a href="{{url_for('home2')}}" style="font-size: 18px;text-decoration: underline;color: black;">
+                    <b>
+                        Most_recent
+                    </b>
+                </a>
+            </h6> 
+        {% endif %}
+
+
+        {% if home == 3%}
+            <h6 style="margin-left: 125px;font-size: 17;margin-bottom: 20px;padding-top: 20PX;margin-left: 40px;">
+                <a href="{{url_for('home3')}}" style="font-size: 18px;text-decoration: underline;color: rgb(99, 43, 163);">
+                    <b>
+                        Saved_jobs
+                    </b>
+                </a>
+            </h6>  
+        {% else %}
+           <h6 style="margin-left: 125px;font-size: 17;margin-bottom: 20px;padding-top: 20PX;margin-left: 40px;">
+                <a href="{{url_for('home3')}}" style="font-size: 18px;text-decoration: underline;color: black;">
+                    <b>
+                        Saved_jobs
+                    </b>
+                </a>
+            </h6> 
+        {% endif %}
+
+
+
+    </span>
+
+
+    {% for job in jobs %}
+
+        <div style="margin-left: 85px;background-color: rgb(255, 255, 255);width: 60%; ">
+
+
+            <hr class="line" style="margin: 0%;padding: 0%;">
+
+            <div>
+                <a href="{{url_for('save_job', job_id=job.job_id)}}">
+                    <img src="{{ url_for('static', filename='images/save_icon.png') }}" alt="Example Image" width="20px" style="display: inline; margin-left: 700px;margin-top: 0px;margin-right: 80px;"> 
+                </a>  
+            </div>
+            <p style="padding-left: 20px;font-size: 13px; color: rgb(72, 69, 70);margin-bottom: 4px;padding-top: 2px;">Posted  {{job.date_posted.strftime('%Y-%m-%d')}}</p>
+
+            <h1 class="display-6" style="padding-left: 20px;color: rgb(125, 44, 192);"> {{job.title}}</h1>
+
+            <h5 style="padding-left: 24px; font-size: 12px;color: #;">${{job.budget}}</h5>
+            <p style="padding-left: 24px;font-size: 16px">{{job.description}}</p>
+
+            <span style="display:flex;flex-direction: row;padding-left: 24px;">
+                <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);">data analyse </p>
+                <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p>
+                <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p >
+            </span>
+
+            <h5 style="padding-left: 20px;font-size: 13px;color: rgb(72, 69, 70);">
+                <img src="{{ url_for('static', filename='images/gps.png') }}" alt="Example Image" width="20px" style="padding-bottom: 4px">                   {{job.location}}
+            </h5>
+
+            <p style="padding-left: 20px;color:rgb(114, 105, 108);margin-bottom: 0px;padding-bottom: 22px;">proposals: 20 to 50</p>
+        
+        </div>
+    {% endfor %}
+
+
+  
+
+        
+
+{% endblock content %}
+
+

@@ -1,0 +1,140 @@
+{% extends "Base.html" %}
+
+{% block content %}
+	{% for message in get_flashed_messages() %}
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}<br>
+
+       
+	<div class="dropdown" style="position: absolute;top: 70PX;right: 50px;z-index: 100;">
+	  <button class="btn btn-secondary " type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding:0px;background-color: white;border: none;">
+	      <img src="{{ url_for('static', filename='images/Hamburger_icon.png') }}" alt="Example Image" width="30px">    
+
+	  </button>
+	  <ul class="dropdown-menu">
+	    <li>	<button class="dropdown-item" type="button">
+	    			<a href="{{url_for('home3')}}" style="text-decoration: none;color: #495057;">saved jobs</a>
+	    		</button>
+	    </li>
+
+	    <li>	<button class="dropdown-item" type="button">
+	    			<a href="{{url_for('jobs_i_apply_for')}}" style="text-decoration: none;color: #495057;">your applications</a>
+	    		</button>
+	    </li>
+
+	   
+
+	  </ul>
+	</div>
+
+	<div style="display: flex;flex-direction: row; align-items: start;">
+
+		<div style="width: 15%; margin-left: 30px;">
+					
+			<div  class="border" style="margin: 0px;;border-radius: 10px;padding: 15px 15px;background-color: rgb(249, 249, 249);"> 
+					<div >
+						<h6 style="font-size:15px;color: #6c757d;">Phone number: <span style="color:#343a40;">{{user.phone_num}}</span></h6>
+						<h6 style="font-size:15px;color: #6c757d;">Succes: <span style="color:#343a40;">{{user.succeces}}%</span></h6>
+						<h6 style="font-size:15px;color: #6c757d;">Your company: <span style="color:#343a40;">{{user.company}}</span></h6>
+					</div>
+
+					<h5 style="color: rgb(106, 76, 147);font-size: 16px;text-decoration: underline;margin-top: 20px ;">Languages <a href="{{url_for('add_langauge')}}"><button class="btn btn-sm">add+</button></a></h5>
+					<div style="display: flex;flex-direction: column;align-items: strar;padding-left: 10px;">
+						{% for l in langauges %}
+						<h6 style="font-size:14px;font-family: system-ui;color: #495057;">{{l.langauge}}</h6>
+						{% endfor %}
+
+					</div>
+
+
+					<h5 style="color: rgb(106, 76, 147);font-size: 16px;text-decoration: underline;margin-top: 20px;">Your education</h5>
+					<div style="display: flex;flex-direction: column;align-items: strar;: 10px;">
+						<h6 class="display-6" style="font-size:14px;">2023: </h6>
+						<h5 style="font-size: 15px;padding-left: 8px;" class="display-5"> <b>bac physic science</b></h5>
+					</div>
+			</div>	
+		</div>
+
+
+		<div style="width: 80%;">
+
+			<div class="border" style="margin: 0px 20px;padding: 22;border-radius: 10px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;">
+					<div class="row">
+
+						<div class="col" style="min-width: 400px;">
+								<span  style="display:flex;flex-direction: row;">
+						    	<img src="{{ url_for('static', filename='images/profile.png') }}" alt="Example Image" width="89px" style="margin: 10px;">    
+
+						    	<span  style="display:flex;flex-direction: column;">
+						       	<h4 style="padding:20px;padding-left: 0px;padding-bottom: 5px;color:  #212529;">{{user.firstname}} {{user.lastname}}</h4>
+						       	<span style="display:flex;flex-direction: row;justify-content: center;align-items: center;">
+						       		<img src="{{ url_for('static', filename='images/gps.png') }}" alt="Example Image" width="24px" height="24px"  style="margin-right: 10px;"> 
+						       		<P style="margin: 0px;margin-left: 0px;color: #495057;">Marrakesh, Morocco – 6:14 pm local time</P>
+						       	</span>
+
+						    	</span>
+							</span>
+						</div>
+
+						<div class="col" style="max-width: 210px;">
+							<button type="button" class="btn btn-warning"  style="margin:40px;width: 150px;margin-right: 0px;background-color: white;border-color: #c77dff;border-width: 2px;border-radius: 12px;color: #6c757d;">see public view</button>
+						</div>
+
+						<div class="col" style="max-width: 210px;">
+							<button type="button" class="btn btn-warning" style="margin:40px;width: 150px;margin-left: 0px;background-color: #c77dff;color: black;border-color: 
+							#c77dff;border-radius: 12px;">Profile Settings</button>
+						</div>
+
+						</div>
+			</div>
+		            
+			<div class="border" style="margin: 0px 20px;padding: 22px;border-radius: 10px;border-top-right-radius: 0px;border-top-left-radius: 0px;padding: 0;">
+
+				<span style="display: flex;flex-direction: row;">
+					<h5 style="padding: 20px;font-size: 30px;float: left;padding-bottom: 0;color: #343a40;" class="display-6"><b>{{user.profile_title}}</b></h5>
+
+					<h2 style="font-size: 30px;float: right;position: absolute;top: 240px ;right: 90px;" class="display-6"><b>${{user.price_of_work_for_hour}}.00/hr</b></h2>
+				</span>
+
+				<p style="padding: 40px;padding-top: 20px;font-size: 17px;padding-right: 70px;    line-height: 1.2;font-family: sans-serif;color: #343a40;">
+					{{user.self_intro}}
+				</p>
+				<hr>
+				<h5 style="padding-left:35px;color: rgb(106, 76, 147);font-size: 25px;padding-top: 20px;">Skills:</h5>
+				<div style="padding: 40px;padding-top: 0;display: flex;flex-direction: row;">
+					{% for s in skills %}
+						<p style="font-size: 18px;border: 2px solid gray;padding: 3px 18px;margin: 0px 5px;border: 2px solid rgb(233, 233, 233);border-radius: 30px;background-color: rgb(233, 233, 233);padding-bottom: 4px;color: rgb(103, 103, 103);" class="display-5"> 
+							<b>{{s.skill_name}}</b>
+						</p>
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="border" style="margin: 20px 20px;padding: 22;border-radius: 10px;">
+				<h1 style="padding:10px 40px;font-size: 27px;font-family: sans-serif;color: #343a40;">Employment history</h1>
+
+				{% for e in experiencs %}
+
+
+				<div style="padding:8px 40px;font-size: 17px;font-family: sans-serif;display: flex;flex-direction: row;">
+					<h5>{{e.experienc}} |</h5> <h5 style="padding-left: 5px;">OneClick</h5>
+				</div>
+				<div style="padding:0px 40px;font-size: 17px;font-family: sans-serif;display: flex;flex-direction: row;color: #6c757d;">
+					<h5>{{e.experienc_duration}} -</h5> <h5 style="padding-left: 5px;">{{e.experienc_duration}}</h5>
+				</div>
+				<p  style="padding: 40px;padding-top: 20px;font-size: 17px;padding-right: 10px;    line-height: 1.2;font-family: sans-serif;color: #6c757d;">i'm a developer web in a comny in the sectore of creating web sites mobial applications and desktop applications</p>
+
+				{% endfor %}
+
+
+			</div>
+		</div>
+	</div>
+			
+
+
+{% endblock content %}
