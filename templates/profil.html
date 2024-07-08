@@ -33,7 +33,7 @@
 
 	<div style="display: flex;flex-direction: row; align-items: start;">
 
-		<div style="width: 15%; margin-left: 30px;">
+		<div style="width: 20%; margin-left: 30px;">
 					
 			<div  class="border" style="margin: 0px;;border-radius: 10px;padding: 15px 15px;background-color: rgb(249, 249, 249);"> 
 					<div >
@@ -42,7 +42,7 @@
 						<h6 style="font-size:15px;color: #6c757d;">Your company: <span style="color:#343a40;">{{user.company}}</span></h6>
 					</div>
 
-					<h5 style="color: rgb(106, 76, 147);font-size: 16px;text-decoration: underline;margin-top: 20px ;">Languages <a href="{{url_for('add_langauge')}}"><button class="btn btn-sm">add+</button></a></h5>
+					<h5 style="color: rgb(106, 76, 147);font-size: 16px;text-decoration: underline;margin-top: 20px ;">Languages <a href="{{url_for('add_langauge')}}"><button class="btn btn-sm btn-primary" style="background-color: #e0aaff;border-color: #e0aaff;color: #10002b;margin-left: 10px;">add+</button></a></h5>
 					<div style="display: flex;flex-direction: column;align-items: strar;padding-left: 10px;">
 						{% for l in langauges %}
 						<h6 style="font-size:14px;font-family: system-ui;color: #495057;">{{l.langauge}}</h6>
@@ -51,16 +51,27 @@
 					</div>
 
 
-					<h5 style="color: rgb(106, 76, 147);font-size: 16px;text-decoration: underline;margin-top: 20px;">Your education</h5>
+					<h5 style="color: rgb(106, 76, 147);font-size: 16px;text-decoration: underline;margin-top: 20px;">
+						Your education:
+						<a href="{{url_for('add_education')}}">
+							<button class="btn btn-sm btn-primary" style="font-size: 14px;background-color: #e0aaff;border-color: #e0aaff;color: #10002b;margin-left: 10px;">
+								add+
+							</button>
+						</a>
+					</h5>
 					<div style="display: flex;flex-direction: column;align-items: strar;: 10px;">
-						<h6 class="display-6" style="font-size:14px;">2023: </h6>
-						<h5 style="font-size: 15px;padding-left: 8px;" class="display-5"> <b>bac physic science</b></h5>
+					
+
+						{% for e in education %}
+							<h6 class="display-6" style="font-size:14px;">{{e.date_end}}: </h6>
+							<h5 style="font-size: 15px;padding-left: 8px;" class="display-5"> <b>{{e.sectore}}</b></h5>
+						{% endfor %}
 					</div>
 			</div>	
 		</div>
 
 
-		<div style="width: 80%;">
+		<div style="width: 75%;">
 
 			<div class="border" style="margin: 0px 20px;padding: 22;border-radius: 10px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;">
 					<div class="row">
@@ -73,7 +84,7 @@
 						       	<h4 style="padding:20px;padding-left: 0px;padding-bottom: 5px;color:  #212529;">{{user.firstname}} {{user.lastname}}</h4>
 						       	<span style="display:flex;flex-direction: row;justify-content: center;align-items: center;">
 						       		<img src="{{ url_for('static', filename='images/gps.png') }}" alt="Example Image" width="24px" height="24px"  style="margin-right: 10px;"> 
-						       		<P style="margin: 0px;margin-left: 0px;color: #495057;">Marrakesh, Morocco – 6:14 pm local time</P>
+						       		<P style="margin: 0px;margin-left: 0px;color: #495057;">{{user.address}} – 6:14 pm local time</P>
 						       	</span>
 
 						    	</span>
@@ -81,15 +92,17 @@
 						</div>
 
 						<div class="col" style="max-width: 210px;">
-							<button type="button" class="btn btn-warning"  style="margin:40px;width: 150px;margin-right: 0px;background-color: white;border-color: #c77dff;border-width: 2px;border-radius: 12px;color: #6c757d;">see public view</button>
+							<a href="{{url_for('update', id=current_user.id, foc=1)}}">
+							<button type="button" class="btn btn-warning"  style="margin:40px;width: 150px;margin-right: 0px;background-color: white;border-color: #c77dff;border-width: 2px;border-radius: 12px;color: #6c757d;">see public view</button></a>
 						</div>
-
-						<div class="col" style="max-width: 210px;">
+						
+						<div class="col" style="max-width: 210px;"><a href="{{url_for('update', id=current_user.id, foc=1)}}">
 							<button type="button" class="btn btn-warning" style="margin:40px;width: 150px;margin-left: 0px;background-color: #c77dff;color: black;border-color: 
-							#c77dff;border-radius: 12px;">Profile Settings</button>
+							#c77dff;border-radius: 12px;">Profile Settings</button></a>
 						</div>
+						
 
-						</div>
+					</div>
 			</div>
 		            
 			<div class="border" style="margin: 0px 20px;padding: 22px;border-radius: 10px;border-top-right-radius: 0px;border-top-left-radius: 0px;padding: 0;">
@@ -104,7 +117,7 @@
 					{{user.self_intro}}
 				</p>
 				<hr>
-				<h5 style="padding-left:35px;color: rgb(106, 76, 147);font-size: 25px;padding-top: 20px;">Skills:</h5>
+				<h5 style="padding-left:35px;color: rgb(106, 76, 147);font-size: 25px;padding-top: 20px;color: #343a40;">Skills:</h5>
 				<div style="padding: 40px;padding-top: 0;display: flex;flex-direction: row;">
 					{% for s in skills %}
 						<p style="font-size: 18px;border: 2px solid gray;padding: 3px 18px;margin: 0px 5px;border: 2px solid rgb(233, 233, 233);border-radius: 30px;background-color: rgb(233, 233, 233);padding-bottom: 4px;color: rgb(103, 103, 103);" class="display-5"> 
@@ -120,13 +133,13 @@
 				{% for e in experiencs %}
 
 
-				<div style="padding:8px 40px;font-size: 17px;font-family: sans-serif;display: flex;flex-direction: row;">
-					<h5>{{e.experienc}} |</h5> <h5 style="padding-left: 5px;">OneClick</h5>
-				</div>
-				<div style="padding:0px 40px;font-size: 17px;font-family: sans-serif;display: flex;flex-direction: row;color: #6c757d;">
-					<h5>{{e.experienc_duration}} -</h5> <h5 style="padding-left: 5px;">{{e.experienc_duration}}</h5>
-				</div>
-				<p  style="padding: 40px;padding-top: 20px;font-size: 17px;padding-right: 10px;    line-height: 1.2;font-family: sans-serif;color: #6c757d;">i'm a developer web in a comny in the sectore of creating web sites mobial applications and desktop applications</p>
+					<div style="padding:8px 40px;font-size: 17px;font-family: sans-serif;display: flex;flex-direction: row;">
+						<h2 style="font-size:24px;">{{e.experienc}} |</h2> <h2 style="padding-left: 5px;font-size: 24px;">OneClick</h2>
+					</div>
+					<div style="padding:0px 40px;font-size: 17px;font-family: sans-serif;display: flex;flex-direction: row;color: #6c757d;">
+						<h5>{{e.experienc_end_data}} -</h5> <h5 style="padding-left: 5px;">{{e.experienc_end_data}}</h5>
+					</div>
+					<p  style="padding: 40px;padding-top: 20px;font-size: 17px;padding-right: 10px;    line-height: 1.2;font-family: sans-serif;color: #6c757d;">i'm a developer web in a comny in the sectore of creating web sites mobial applications and desktop applications</p>
 
 				{% endfor %}
 

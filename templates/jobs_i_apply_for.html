@@ -8,52 +8,75 @@
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	{% endfor %}<br>
-	<center>
+	
         <style type="text/css">
             .CW {
                 width: 400px;
             }
+             a:hover {
+            text-decoration: none;
+        }
         </style>
+
+
         {% if data %}
+
     
-            <h3 class="text-primary"style="margin-top: 60px;">the jobs you apply for...</h3><br><br>
-            
-            <div>
-                <h1>Freelancer Infos:</h1>
-                <h2>{{email}}</h2>
-                <h2>{{firstname}}</h2>
-                <h2>{{lastname}}</h2>
-                <h2>{{succeces}}</h2>
-                <h2>{{address}}</h2>
-                <h2>{{gender}}</h2>
-                <h2>{{birthdate}}</h2>
+            <h3 class="text-primary display-5"style="margin-top: 60px;">Jobs you apply for...</h3><br><br>
+            <hr class="line" style="margin: 0%;padding: 0%;width: 60%;margin-left: 85px;">
 
-                <table border="1" style="border-collapse: separate; border-spacing: 10px;" class="table table-hover">
-                    <tr>
-                        
-                        <th>job_id</th>
-                        <th>client_posted_id</th>
-                        <th>title</th>
-                        <th>budgetId</th>
-                        <th>description</th>
-                        <th>date_posted</th>
-                    </tr>
-                    {% for info in data %}
-                        <tr>
-                            <td>{{ info.job_id }}</td>
-                            <td>{{ info.client_posted_id }}</td>
-                            <td>{{ info.title }}</td>
-                            <td>{{ info.budget }}</td>
-                            <td>{{ info.description }}</td>
-                            <td>{{ info.date_posted }}</td>
-                            
-                        </tr>
-                    {% endfor %}
-                </table> 
-            </div>
+            {% for job in data %}
+
+                <div style="margin-left: 85px;background-color: rgb(255, 255, 255);width: 60%; ">
+
+
+
+                <div style="display:flex;flex-direction: row;align-items: center;margin-left: 680px;">
+
+
+                <a href="{{url_for('remove_job', id=current_user.id ,job_id=job.job_id)}}" style="padding-right:10px;">
+                <img src="{{ url_for('static', filename='images/remove2.png') }}" alt="Example Image" width="24px"  class="heart_image" > 
+
+
+                </a>  
+                <a href="{{url_for('save_job', job_id=job.job_id)}}">
+                <img src="{{ url_for('static', filename='images/save_icon.png') }}" alt="Example Image" width="20px"    > 
+                </a>  
+
+
+                </div>
+                <p style="padding-left: 20px;font-size: 13px; color: rgb(72, 69, 70);margin-bottom: 4px;padding-top: 2px;">Posted  {{job.date_posted.strftime('%Y-%m-%d')}}</p>
+
+
+                <a href="{{url_for('job_inforamtion', job_id=job.job_id)}}"><h1 class="display-6" style="padding-left: 20px;color: rgb(125, 44, 192);"> {{job.title}}</h1></a>
+
+                <h5 style="padding-left: 24px; font-size: 12px;color: #;">${{job.budget}}</h5>
+                <p style="padding-left: 24px;font-size: 16px">{{job.description}}</p>
+
+                <span style="display:flex;flex-direction: row;padding-left: 24px;">
+                <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);">data analyse </p>
+                <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p>
+                <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p >
+                </span>
+
+                <h5 style="padding-left: 20px;font-size: 13px;color: rgb(72, 69, 70);">
+                <img src="{{ url_for('static', filename='images/gps.png') }}" alt="Example Image" width="20px" style="padding-bottom: 4px">                   {{job.location}}
+                </h5>
+
+                <p style="padding-left: 20px;color:rgb(114, 105, 108);margin-bottom: 0px;padding-bottom: 22px;">proposals: 20 to 50</p>
+
+                <hr class="line" style="margin: 0%;padding: 0%;">
+
+                </div>
+            {% endfor %}
+
         {% else %}
-            <h3 class="text-primary"style="margin-top: 120px;border: 2px solid black;margin: 100px 400px;">You had Not Apply for any Jobs yet!!!</h3><br><br>
-
+            <center>
+                <h3 class="text-primary display-5"style="margin-top: 60px;">You find your application here...</h3><br><br>
+                
+            </center>
         {% endif %}
-    </center>
+
+
+    
 {% endblock content %}

@@ -146,35 +146,44 @@
     
             <div class="container" style="max-width:290px;background-color: white;position: absolute;left: 30px;top: 200px;height: 69%;border-radius: 40px;padding: 0;width: 600px;border: none;">
                  <ul>
-                    {% for u in users%}
-                        {% if not u.id == current_user.id %}
-                            <li style="margin-left: 0;padding: 10px 0px;">
-                                <div   style="background-color: #bfdbf7; border-radius: 10px; padding: 12px 0px;padding-right: 30px;"> 
-                                    <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;color: black;">
-                                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-                                            <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
-                                            <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        {% endif %}
-                    {% endfor %} 
+                   {% for u in users%}
+                    {% if not u.id == current_user.id %}
+                        <li style="margin-left: 0;padding: 5px 0px;">
+                            <div   style="background-color: gray; border-radius: 10px; padding: 4px 0px;padding-right: 30px;color: black;"> 
+                                <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;color: black;">
+                                    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+
+                                        <span class="material-symbols-outlined" style="font-size:0px; color: purple;">
+                                                <img src="{{ url_for('static', filename='images/profile1.png') }}" alt="Example Image" width="40px" style="border-radius:50%;margin: 0px;padding: 3px;">
+  
+                                        </span>
+                                        <!-- <h5 class="user_name" style="margin: 0;text-shadow: none;font-size: 16px;">{{u.email}}</h5> -->
+                                        <h5 class="user_name" style="margin: 0;text-shadow: none;font-size: 16px;">
+
+                                            {{ u.email.split('@')[0] }}                                        
+                                        </h5>
+                                        <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %} 
                 </ul>
             </div>
         </div>
 
 
-        <div class="chat-container" style="height: 10px; overflow-y: auto;max-width: 1000px;width: 950px;border: none;display: flex;float: left;">
+        <div class="chat-container" style="height: 10px; overflow-y: auto;max-width: 1000px;width: 950px;border: none;display: flex;float: left;margin-bottom: 50px;">
 
             <div class="chat-header" style="display: flex;flex-direction: row;justify-content: center;align-items: center;background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;" >
 
                 <span class="material-symbols-outlined" style="font-size:35px; color: purple;">
-                    <a href=" {{url_for('my_profile', user_id=receiver_id)}}" style="color: purple;padding-right: 19px;">  account_circle</a>
+                    <a href=" {{url_for('my_profile', user_id=receiver_id)}}" style="color: purple;padding-right: 19px;margin-left: 30px    ;">  account_circle</a>
                       
                 </span>
-                <span   style="background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;float: left;padding-right: 350px;">
-                    {{user_connect_with_now.email}}
+                <span   style="background-color: #674593; border-top-left-radius: 20px; border-top-right-radius: 20px;float: left;margin-right: 350px;">
+                    {{user_connect_with_now.email.split('@')[0] }}
                 </span>
             </div>
 
@@ -201,7 +210,7 @@
 
 
 
-            <div class="chat-input" style="display: flex; flex-direction: row; padding: 10px;">
+            <div class="chat-input" style="display: flex; flex-direction: row; padding: 2px; border:1px solid gray;border-radius: 10px;border-top-right-radius: 0;border-top-left-radius: 0;">
                 <form id="chatForm" novalidate method="POST" style="display: flex; flex-direction: row; width: 100%;">
                     {{ form.hidden_tag() }}
                     {{ form.content(class="form-control CW input_message", placeholder="Type a message...", style="flex: 1 1 80%; margin-right: 10px;") }}

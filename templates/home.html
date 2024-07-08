@@ -24,83 +24,62 @@
         img:hover {
             border-color: purple;
         }
+        a:hover {
+            text-decoration: none;
+        }
+       
     </style>
 
 
 
 
- 
+    
 
 
     <div class="row" style="padding: 0pc;margin: 0px;">
         <div class="col-7" style="margin-left:100px; border-radius: 15px;margin-top: 10px;">
 
 
-        <div id="carouselExampleDark" class="carousel carousel-dark slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="{{ url_for('static', filename='images/1.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">    
 
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">    
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ url_for('static', filename='images/3.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">    
-                    <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                    </div>
-                </div>
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-wrap="true">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+            <img src="{{ url_for('static', filename='images/1.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color:white;">Why WORDLance</h5>
+                <p style="color:white;">Simple!! Becuase it is the <b>Best</b>.</p>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color:white;">How it works</h5>
+                <p style="color:white;">Also simple just look for the work you like and <b>Apply</b> for it.</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="{{ url_for('static', filename='images/3.jpg') }}" alt="Example Image" width="100%" style="border-radius:10px;" class="d-block w-100">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color:white;">Find job</h5>
+                <p style="color:white;">search for jobs that requere you skills.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 
 
@@ -110,13 +89,14 @@
 
         <div class="col-3" style=" margin-left: 30px; margin-top: 20px;">
             <div class="row" style="padding-top: 20px;padding-bottom: 10px;background-color: #e9ecef;border-radius: 15px;">
-                <div class="col-sm-4">            
+                <div class="col-sm-4"> 
+                    <a href="{{ url_for('my_profile', user_id=current_user.id) }}">   
                     <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Example Image" width="80px" style="border-radius: 50%; 
-                    background-color: #6a4c93;">    
+                    background-color: #6a4c93;">    </a>      
                 </div>
                 <div class="col-sm-8"> 
 
-                    <a href="#" style="color:black;text-decoration: underline;padding: 0px;margin: 0px;   font-family: 'Neue Montreal', Arial, sans-serif;
+                    <a href="{{ url_for('my_profile', user_id=current_user.id) }}" style="color:black;text-decoration: underline;padding: 0px;margin: 0px;   font-family: 'Neue Montreal', Arial, sans-serif;
                     ;">
                         <h5 style="font-size: 24px; color:#212529;" id="profile_name">{{user.firstname}} {{user.lastname}}</h5>
                     </a>
@@ -212,14 +192,24 @@
 
             <hr class="line" style="margin: 0%;padding: 0%;">
 
-            <div>
-                <a href="{{url_for('save_job', job_id=job.job_id)}}">
-                    <img src="{{ url_for('static', filename='images/save_icon.png') }}" alt="Example Image" width="20px" style="display: inline; margin-left: 700px;margin-top: 0px;margin-right: 80px;"> 
+            <div style="display:flex;flex-direction: row;align-items: center;margin-left: 680px;">
+
+
+                <a href="{{url_for('save_job', job_id=job.job_id)}}" style="padding-right:10px;">
+                    <img src="{{ url_for('static', filename='images/heart.png') }}" alt="Example Image" width="20px"  class="heart_image" > 
+
+
                 </a>  
+                <a href="{{url_for('save_job', job_id=job.job_id)}}">
+                    <img src="{{ url_for('static', filename='images/save_icon.png') }}" alt="Example Image" width="20px"    > 
+                </a>  
+                
+                
             </div>
             <p style="padding-left: 20px;font-size: 13px; color: rgb(72, 69, 70);margin-bottom: 4px;padding-top: 2px;">Posted  {{job.date_posted.strftime('%Y-%m-%d')}}</p>
 
-            <h1 class="display-6" style="padding-left: 20px;color: rgb(125, 44, 192);"> {{job.title}}</h1>
+            
+            <a href="{{url_for('job_inforamtion', job_id=job.job_id)}}"><h1 class="display-6" style="padding-left: 20px;color: rgb(125, 44, 192);"> {{job.title}}</h1></a>
 
             <h5 style="padding-left: 24px; font-size: 12px;color: #;">${{job.budget}}</h5>
             <p style="padding-left: 24px;font-size: 16px">{{job.description}}</p>

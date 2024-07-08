@@ -34,6 +34,11 @@ login_manager.login_view = 'login'
 def load_user(id):
     return freelancers.query.get(int(id))
 
+@app.context_processor
+def base():
+    form = GlobalSearchForm()
+    return dict(form=form)
+
 
 
 # Form Classes
@@ -122,6 +127,10 @@ class SearchForm(FlaskForm):
     email = StringField("Youe searched: ", validators=[DataRequired()])
     search = SubmitField("Search")
 
+class GlobalSearchForm(FlaskForm):
+    searched = StringField("searched: ", validators=[DataRequired()])
+    search = SubmitField("Search")
+
 class skillsForm(FlaskForm):
     skill_name = StringField("skill: ", validators=[DataRequired()])
     submit = SubmitField("add")
@@ -154,6 +163,8 @@ class certificationForm(FlaskForm):
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def Test():
+
+   
     current_freelancer = freelancers.query.filter_by(id = current_user.id).first()
     if current_freelancer:
         current_skills = Skills.query.filter_by(id=current_freelancer.id).all()
@@ -331,6 +342,7 @@ def jobs_i_apply_for():
             mydict["title"]= job.title
             mydict["description"]= job.description
             mydict["budget"]= job.budget
+            mydict["location"]= job.location
             mydict["date_posted"]= job.date_posted
 
             data.append(mydict)
@@ -343,6 +355,91 @@ def jobs_i_apply_for():
             succeces=succeces, address=address, gender=gender, birthdate=birthdate)
     else:
         return render_template("jobs_i_apply_for.html")
+
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+def Gloabalsearch():
+    form = GlobalSearchForm()
+    results = []
+    if form.validate_on_submit():
+        searched = form.searched.data
+
+        # Search jobs by description, title, and location
+        jobs = joboffers.query.filter(
+            db.or_(
+                joboffers.description.like('%' + searched + '%'),
+                joboffers.title.like('%' + searched + '%'),
+                joboffers.location.like('%' + searched + '%')
+            )
+        ).all()
+
+        # Search clients by firstname, lastname, and email
+        my_clients = clients.query.filter(
+            db.or_(
+                clients.firstname.like('%' + searched + '%'),
+                clients.lastname.like('%' + searched + '%'),
+                clients.email.like('%' + searched + '%')
+            )
+        ).all()
+
+        # Search freelancers by firstname, lastname, email, self_intro, and profile_title
+        my_freelancers = freelancers.query.filter(
+            db.or_(
+                freelancers.firstname.like('%' + searched + '%'),
+                freelancers.lastname.like('%' + searched + '%'),
+                freelancers.email.like('%' + searched + '%'),
+                freelancers.self_intro.like('%' + searched + '%'),
+                freelancers.profile_title.like('%' + searched + '%')
+            )
+        ).all()
+
+        # Combine results into a single list with a consistent format
+        for job in jobs:
+            results.append({'type': 'Job', 'content': job.title})
+        for client in my_clients:
+            results.append({'type': 'Client', 'content': client.firstname + " " + client.lastname})
+        for freelancer in my_freelancers:
+            results.append({'type': 'Freelancer', 'content': freelancer.firstname + " " + freelancer.lastname})
+
+        # Sort the combined list alphabetically by the 'content' key
+        results.sort(key=lambda x: x['content'])
+
+        return render_template("search.html", form=form, searched=searched, results=results)
+
+    return render_template("search.html", form=form, results=results)
+
+# Note: Make sure the model names and field names are accurate based on your actual models.
+
+
+
+
+@app.route('/remove_job/<int:id>/<int:job_id>', methods=['GET', 'POST'])
+@login_required
+def remove_job(id, job_id):
+    # Correct spelling of 'application'
+    application = applications.query.filter_by(job_id=job_id, id=id).first()
+    
+    # Check if application exists
+    if not application:
+        flash("Application not found.")
+        return redirect(url_for('jobs_i_apply_for'))
+    
+    # Get the job to remove or 404 if it doesn't exist
+    job_to_remove = applications.query.get_or_404(application.application_id)
+    
+    try:
+        db.session.delete(job_to_remove)
+        db.session.commit()
+        flash("Job removed successfully!")
+    except Exception as e:
+        db.session.rollback()
+        flash("Whoops! Something went wrong: {}".format(e))
+    
+    return redirect(url_for('jobs_i_apply_for'))
+
+
+
 
 @app.route('/update_user/<int:id>/<int:foc>', methods=['GET', 'POST'])
 @login_required
@@ -372,6 +469,8 @@ def update(id, foc):
         db.session.commit()
         skillsFormhtml.skill_name.data = ""
         flash(f"skill add successfully! for the user with the username: {user_to_update.email}")
+        return redirect(url_for('my_profile', user_id = current_user.id))
+
 
 
     if experienceFormhmtl.validate_on_submit():
@@ -386,6 +485,8 @@ def update(id, foc):
         experienceFormhmtl.experienc_start_data.data = ""
         experienceFormhmtl.experienc_end_data.data = ""
         flash(f"experienc add successfully! for the user with the username: {user_to_update.email}")
+        return redirect(url_for('my_profile', user_id = current_user.id))
+
     
     if langaugFormhtml.validate_on_submit():
         new_langauge = langauges(id=user_to_update.id, 
@@ -394,6 +495,8 @@ def update(id, foc):
         db.session.commit()
         langaugFormhtml.langauge.data=""
         flash(f"langauge add successfully! for the user with the username: {user_to_update.email}")
+        return redirect(url_for('my_profile', user_id = current_user.id))
+
     
     if educationFormhtml.validate_on_submit():
         new_education = education(id=user_to_update.id, 
@@ -408,6 +511,8 @@ def update(id, foc):
         educationFormhtml.sectore.data =""
         educationFormhtml.degree.data = ""
         flash(f"education add successfully! for the user with the username: {user_to_update.email}")
+        return redirect(url_for('my_profile', user_id = current_user.id))
+
 
     if certificationFormhtml.validate_on_submit():
         new_certification = Certifications2(
@@ -424,6 +529,7 @@ def update(id, foc):
         certificationFormhtml.certification_url.data = ""
         certificationFormhtml.date_token.data = ""
         flash(f"Certification added successfully for the user with the username: {user_to_update.email}")
+        return redirect(url_for('my_profile', user_id = current_user.id))
 
 
 
@@ -447,21 +553,36 @@ def update(id, foc):
 @app.route('/add_langauges/', methods=['GET', 'POST'])
 @login_required
 def add_langauge():
-
-    
     user = freelancers.query.get_or_404(current_user.id)
-
     form = langaugForm()
     if form.validate_on_submit():
-        new_experiencs = langauges(id=user.id, 
+        new_langauge = langauges(id=user.id, 
                             langauge=form.langauge.data                                       )
-        db.session.add(new_experiencs)
+        db.session.add(new_langauge)
         db.session.commit()
-        
         flash(f"langaugge:{form.langauge.data} registered successfully!")
+        return redirect(url_for('my_profile', user_id=current_user.id))
     login = True
-
     return render_template("langauge.html", form=form,login=login)
+
+@app.route('/add_education/', methods=['GET', 'POST'])
+@login_required
+def add_education():
+    user = freelancers.query.get_or_404(current_user.id)
+    form = educationForm()
+    if form.validate_on_submit():
+        new_education = education(id=user.id, 
+                            school = form.school.data,
+                            sectore = form.sectore.data,
+                            degree = form.degree.data,
+                            date_start = form.date_start.data,
+                            date_end = form.date_end.data)
+        db.session.add(new_education)
+        db.session.commit()
+        flash(f"education:{form.sectore.data} registered successfully!")
+        return redirect(url_for('my_profile', user_id=current_user.id))
+    login = True
+    return render_template("education.html", form=form,login=login)
 
 @app.route('/delet_skill/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -517,6 +638,25 @@ def delet_educaiton(id):
     return redirect(url_for('update', id=current_user.id, foc =1) )
 
 
+
+
+
+
+
+
+@app.route('/job_inforamtion/<int:job_id>', methods=['GET', 'POST'])
+@login_required
+def job_inforamtion(job_id):
+    job = joboffers.query.get_or_404(job_id)
+    
+    login = True
+    return render_template("job_inforamtion.html", job = job,
+    login=login)
+
+
+
+
+
 @app.route('/delet_ceretificaion/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delet_certificaiton(id):
@@ -564,10 +704,11 @@ def job_offer(id):
 def my_profile(user_id=1):
     user = freelancers.query.get_or_404(user_id)
     skills = Skills.query.filter(Skills.id == current_user.id ).all()
+    my_education = education.query.filter(education.id == current_user.id ).all()
     my_experiencs = experiencs.query.filter(experiencs.id == current_user.id ).all()
     login = True
     mylangauges = langauges.query.filter(langauges.id == current_user.id)
-    return render_template("profil.html", user = user, login=login, skills=skills, experiencs=my_experiencs, langauges=mylangauges)
+    return render_template("profil.html", user = user, login=login, skills=skills, experiencs=my_experiencs, langauges=mylangauges, education=my_education)
 
 @app.route('/send_message/<int:sender_client_id>/<int:receiver_client_id>', methods=['POST', 'GET'])
 @login_required
@@ -581,7 +722,6 @@ def send_message(sender_client_id, receiver_client_id):
         new_message = Message(sender_client_id=sender_client_id,receiver_client_id=receiver_client_id, content=content)
         db.session.add(new_message)
         db.session.commit()
-        flash("message registered successfully!")
     login = True
     return render_template("sendmessage.html", form=form, login=login)
 
@@ -611,7 +751,7 @@ def my_messages():
         users.append(sender)
 
     for m in thos_hwo_you_send_to:
-        sender = freelancers.query.filter(freelancers.id == m.sender_client_id).first()
+        sender = freelancers.query.filter(freelancers.id == m.receiver_client_id).first()
         users.append(sender)
 
     for u in users:
@@ -624,7 +764,10 @@ def my_messages():
 
 
 
-    return render_template("my_messages.html", messages = your_messages,users=users, form=form, login=login)
+    return render_template("my_messages.html", messages = your_messages,users=users, form=form, login=login,
+        thos_hwo_send_to_you=thos_hwo_send_to_you,
+        thos_hwo_you_send_to=thos_hwo_you_send_to
+        )
 
 @app.route('/convirsation/<int:receiver_id>', methods=['GET', 'POST'])
 @login_required
@@ -641,7 +784,6 @@ def convirsation(receiver_id):
         new_message = Message(sender_client_id=current_user_id, receiver_client_id=receiver_id, content=content)
         db.session.add(new_message)
         db.session.commit()
-        flash("message registered successfully!")
     
     # Fetch messages between current user and the specified receiver
     messages_sent_to_receiver = Message.query.filter(
@@ -680,7 +822,7 @@ def convirsation(receiver_id):
         users.append(sender)
 
     for m in thos_hwo_you_send_to:
-        sender = freelancers.query.filter(freelancers.id == m.sender_client_id).first()
+        sender = freelancers.query.filter(freelancers.id == m.receiver_client_id).first()
         users.append(sender)
 
     user_connect_with_now = freelancers.query.filter(freelancers.id==receiver_id).first()
@@ -710,6 +852,29 @@ def search():
          search=search,
          users_search =  users_search,login=login )
 
+@app.route('/apply_for_job/<int:job_id>', methods=['POST', 'GET'])
+@login_required
+def apply_for_job(job_id):
+
+    try:
+        new_application= applications(job_id=job_id,
+                                        id=current_user.id)
+        db.session.add(new_application)
+        db.session.commit()
+        flash("You had applied successfully!")
+        return redirect(url_for('home1'))
+
+    except:
+        flash("somthing went wrong!!!")
+        return redirect(url_for('home1'))
+
+
+
+
+  
+
+
+    
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     

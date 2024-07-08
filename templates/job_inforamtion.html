@@ -1,0 +1,69 @@
+{% extends "Base.html" %}
+
+{% block content %}
+
+
+	{% for message in get_flashed_messages() %}
+		
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="z-index: 100;">
+			<center>{{ message }}</center>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	{% endfor %}
+    <style>
+        h6:hover {  
+            color: purple;
+        }
+        h5:hover {
+            color: #9d4edd;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid rgb(255, 255, 255);
+        }
+        img:hover {
+            border-color: purple;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+
+    <div style="margin-left: 85px;background-color: rgb(255, 255, 255);width: 60%; padding: 20px 0px;margin-left:200px;border:1px solid gray;border-radius: 10px;padding:10px 30px;">
+       
+        <p style="padding-left: 20px;font-size: 13px; color: rgb(72, 69, 70);margin-bottom: 4px;padding-top: 0px;">Posted  {{job.date_posted.strftime('%Y-%m-%d')}}</p>
+
+
+        <a href="{{url_for('apply_for_job', job_id=job.job_id)}}"><h1 class="display-6" style="padding-left: 20px;color: rgb(125, 44, 192);">Job Title: {{job.title}}</h1></a>
+
+        <h5 style="padding-left: 24px; font-size: 18px;color: #;">Job budget: ${{job.budget}}</h5>
+        <p style="padding-left: 24px;font-size: 20px">{{job.description}}</p>
+
+        <h5 style="margin-left: 20px;">Requare Skills:</h5>
+        <span style="display:flex;flex-direction: row;padding-left: 24px;">
+            <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);">data analyse </p>
+            <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p>
+            <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p >
+        </span>
+
+        <h5 style="padding-left: 20px;font-size: 13px;color: rgb(72, 69, 70);">
+            <img src="{{ url_for('static', filename='images/gps.png') }}" alt="Example Image" width="20px" style="padding-bottom: 4px">                   {{job.location}}
+        </h5>
+
+        <p style="padding-left: 20px;color:rgb(114, 105, 108);margin-bottom: 0px;padding-bottom: 22px;">proposals: 20 to 50</p>
+
+
+         <div style="display:flex;flex-direction: row;align-items: center;margin-left: 0px;">
+            <a href="{{url_for('apply_for_job', job_id=job.job_id)}}" class="btn btn-success" style="padding:5px 35px;margin-right: 10px;">
+                Apply
+            </a>  
+            <a href="{{url_for('save_job', job_id=job.job_id)}}">
+                <img src="{{ url_for('static', filename='images/save_icon.png') }}" alt="Example Image" width="30px"    > 
+            </a>  
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+

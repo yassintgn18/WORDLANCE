@@ -23,6 +23,9 @@
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    
 
         
 
@@ -157,6 +160,8 @@
             @media screen and (min-width: 769px) {       
                 .link:hover {
                     text-decoration: underline;
+                    color: black;
+                    text-decoration-color: #632ba3;
                 }
                 /* Container to hold the line and text */
 .line-with-text {
@@ -312,8 +317,10 @@
                 
 
                                     </ul>
-                    <form class="d-flex" role="search">
-                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex" role="search" method="POST" action="{{url_for('Gloabalsearch')}}">
+                                    {{ form.hidden_tag() }}
+
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched">
                       <button class="btn btn-secondary" type="submit">Search</button>
                     </form>
                 
@@ -345,7 +352,10 @@
                         <span class="material-symbols-outlined" style="font-size:35px;padding-left: 10px; color: purple;">
 
                             {% if current_user.is_authenticated %}
-                                <a href="{{ url_for('my_profile', user_id=current_user.id) }}" style="color: purple;">account_circle</a>
+                                <a href="{{ url_for('my_profile', user_id=current_user.id) }}" style="color: purple;" title="profile">
+                                    <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Example Image" style="max-width: 39px;border-radius: 50%;margin-bottom: 10px;background-color: rgb(99, 43, 163);">
+
+                                </a>
                            
                             {% endif %}
 
@@ -430,13 +440,13 @@
             <div class="row" style="background-color:rgb(24, 24, 24);">
 
                 <div class="col" style="display: flex;flex-direction: column;justify-content: start;">
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Home</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">home</a>
                     <a href="#"style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
                     <a href="#"style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Find jobs</a>
                 </div>
 
                 <div class="col" style="display: flex;flex-direction: column;justify-content: start;">
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Profile</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Skills</a>
                     <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Why WORDLance</a>
                     <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">What is new</a>
 
@@ -445,16 +455,16 @@
                 <div class="col" style="display: flex;flex-direction: column;justify-content: start;">
                     <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Recent jobs</a>
                     <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Cockies</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Find job</a>
 
                 </div>
 
                 <div class="col" style="display: flex;flex-direction: column;justify-content: start;">
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
-                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">About Us</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">Profile</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">start work</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">hello</a>
+                    <a href="#" style="color:rgb(255, 255, 255);font-family: sans-serif;padding: 5px 0px;">World!!</a>
 
                 </div>
             </div>
