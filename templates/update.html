@@ -11,7 +11,7 @@
 		</div>
 	{% endfor %}
 
-	<center>
+	
         <style type="text/css">
             .CW {
                 width: 200px;
@@ -19,123 +19,133 @@
             }
         </style>
     
-        <h3 class="text-primary"style="margin-top: 90px;">Complete Profile</h3>
+        <h3 class="text-primary display-5"style="margin-top: 10px;">Complete Profile</h3>
         <br>
 
-        <div style="display: flex;flex-direction: column;align-items: center;">
+        <div style="display: flex;flex-direction: column;align-items: start;">
 
+            <div style="display: flex;flex-direction: row;align-items: center;">
 
-            <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 40px 250px;border-radius: 20px;padding-top: 40px;">
+                <form novalidate method="POST" style="margin:30px;
+                                                    border: 1px solid gray;
+                                                    padding: 20px 20px;
+                                                    border-radius: 20px;
+                                                    padding-top:20px;
+                                                    margin-top: 0px;">
 
-                {{ skillsForm.hidden_tag() }}
+                    {{ skillsForm.hidden_tag() }}
 
-                <H4>skills: </H4>
-                                <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;margin-bottom: 40px;">
+                    <H4 class="display-6" style="font-size: 25px;color: #5a189a;"><b>skills: </b></H4>
+                    <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;margin-bottom: 20px;">
 
-                {% for s in current_skills %}
+                    {% for s in current_skills %}
 
-                    <p style="color:rgb(71, 64, 70);padding-right:25px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin: 0px 7px;
-                    position: relative;
-                   ">      {{s.skill_name}} 
+                        <p style="color:rgb(71, 64, 70);padding-right:25px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin: 0px 7px;
+                        position: relative;
+                        ">      {{s.skill_name}} 
 
                         <a href="{{url_for('delet_skill', id=s.skill_id)}}">
-                            <img src="{{ url_for('static', filename='images/remove.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
-                            position: absolute;
-                            top: 0px;  /* Adjust as needed */
-                            right: 10px;  /* Adjust as needed */
-                           
-                            border: none;
-                            border: 1px solid gray;
-                            cursor: pointer;
-                            background-color: gray;
-                            border-radius: 10px;
-                            margin-left: 5px;">    
+                        <img src="{{ url_for('static', filename='images/remove2.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
+                        position: absolute;
+                        top: 0px;  /* Adjust as needed */
+                        right: 10px;  /* Adjust as needed */
+
+                        border: none;
+                        border: 1px solid gray;
+                        cursor: pointer;
+                        background-color: #da1e37;
+
+                        border-radius: 10px;
+                        margin-left: 5px;">    
 
                         </a>
 
+                        </p>
+
+                        {% endfor %}
+                    </div>
+
+                    <center style="display: flex;flex-direction: row;">
+
+                    {{ skillsForm.skill_name(class="form-control CW", placeholder="skill")}}
+                    
+                    {{skillsForm.submit(class="btn btn-primary add")}}</center>
+                </form>
+
+                <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 20px 50px;border-radius: 20px;padding-top: 20px;margin-top: 0px;">
+
+                    {{ langaugForm.hidden_tag() }}
+
+                    <H4 class="display-6" style="font-size: 25px;color: #5a189a;"><b>langauges: </b></H4>
+
+                    <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;margin-bottom: 20px;">
+                    {% for l in current_langauges %}
+
+                    <p style="color:rgb(71, 64, 70);padding-right:25px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin: 0px 7px;position: relative;">     {{l.langauge}}
+
+                    <a href="{{url_for('delet_langauge', id=l.langaug_id)}}">
+                                        <img src="{{ url_for('static', filename='images/remove2.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
+                                          position: absolute;
+                    top: 0px;  /* Adjust as needed */
+                    right: 10px;  /* Adjust as needed */
+
+                    border: none;
+                    border: 1px solid gray;
+                    cursor: pointer;
+                    background-color: #da1e37;
+
+                    border-radius: 10px;
+                    margin-left: 5px;">    
+
+
+                    </a>
                     </p>
 
-                    {% endfor %}
-                </div>
-                
-             
-                {{ skillsForm.skill_name(class="form-control CW", placeholder="skill")}}
-                <br>
-                
-                
-                {{skillsForm.submit(class="btn btn-primary")}}
-            </form>
+                    {% endfor %}</div>
 
-            <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 40px 250px;border-radius: 20px;padding-top: 40px;">
+                    <center style="display: flex;flex-direction: row;">
 
-                {{ langaugForm.hidden_tag() }}
+                    {{ langaugForm.langauge(class="form-control CW", placeholder="langauge")}}
+                    <br>
 
-                <H4>langauges: </H4>
-                <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;margin-bottom: 40px;">
-                 {% for l in current_langauges %}
+                   {{skillsForm.submit(class="btn btn-primary add")}}</center>
+                </form>
+            </div>
 
-                            <p style="color:rgb(71, 64, 70);padding-right:25px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin: 0px 7px;position: relative;">     {{l.langauge}}
-
-                                <a href="{{url_for('delet_langauge', id=l.langaug_id)}}">
-                                                                                <img src="{{ url_for('static', filename='images/remove.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
-                                                                                  position: absolute;
-                            top: 0px;  /* Adjust as needed */
-                            right: 10px;  /* Adjust as needed */
-                           
-                            border: none;
-                            border: 1px solid gray;
-                            cursor: pointer;
-                            background-color: gray;
-                            border-radius: 10px;
-                            margin-left: 5px;">    
-
-
-                                </a>
-                            </p>
-
-                {% endfor %}</div>
-                
-                
-            
-                {{ langaugForm.langauge(class="form-control CW", placeholder="langauge")}}
-                <br>
-                
-                {{langaugForm.submit(class="btn btn-primary")}}
-            </form>
-
-
-            <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 40px 100px;border-radius: 20px;padding-top: 100px;">
+            <form novalidate method="POST" style="margin:10px;border: 1px solid gray;padding: 10px 10px;border-radius: 20px;padding-top: 10px;">
 
                 {{ experiencForm.hidden_tag() }}
 
-                <H4>Experiences: </H4>
-                                <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;margin-bottom: 40px;">
+                <H4 class="display-6" style="font-size: 25px;color: #5a189a;"><b>Experiences: </b></H4>
+                <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;margin-bottom: 20px;">
 
 
                  {% for ex in current_experiencs %}
 
 
-                <p style="color:rgb(71, 64, 70);padding-right:25px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin: 0px 7px;position: relative;">     {{ex.experienc}}
-                                        <a href="{{url_for('dele_experience', id=ex.experienc_id)}}">
-                                                                                        <img src="{{ url_for('static', filename='images/remove.png') }}" alt="Example Image" width="10px" style="border-radius:0px;
-                                                                                          position: absolute;
-                            top: 0px;  /* Adjust as needed */
-                            right: 10px;  /* Adjust as needed */
-                           
-                            border: none;
-                            border: 1px solid gray;
-                            cursor: pointer;
-                            background-color: gray;
-                            border-radius: 10px;
-                            margin-left: 5px;">    
+                <p style="color:rgb(71, 64, 70);padding-right:25px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin: 0px 7px;position: relative;">     
+                    {{ex.experienc}}
+                        <a href="{{url_for('dele_experience', id=ex.experienc_id)}}">
+                        <img src="{{ url_for('static', filename='images/remove2.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
+                        position: absolute;
+                        top: 0px;  /* Adjust as needed */
+                        right: 10px;  /* Adjust as needed */
+
+                        border: none;
+                        border: 1px solid gray;
+                        cursor: pointer;
+                        background-color: #da1e37;
+
+                        border-radius: 10px;
+                        margin-left: 5px;">    
 
 
-                                        </a></p>    
+                        </a></p>    
 
                             {% endfor %}
                 </div>
                         
-                
+                <center>
                 <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom: 20px;">
 
          
@@ -150,15 +160,17 @@
                     
                 </div>
                
-                {{experiencForm.submit(class="btn btn-primary")}}
+                {{experiencForm.submit(class="btn btn-primary add")}}
+
+                </center>
             </form>
 
            
-            <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 40px 100px;border-radius: 20px;padding-top: 100px;">
+            <form novalidate method="POST" style="margin:20px;border: 1px solid gray;padding: 10px 10px;border-radius: 20px;padding-top: 10px;">
 
                 {{ educationForm.hidden_tag() }}
-                 <h4>Educations:</h4>
-                                 <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;">
+                <H4 class="display-6" style="font-size: 25px;color: #5a189a;"><b>Education: </b></H4>
+                                 <div style="display:flex;flex-direction: row;justify-content: center;margin: 1px ;">
 
                 {% for ed in current_education %}
 
@@ -169,14 +181,14 @@
                                 border-radius: 20px;
                                 background-color: rgb(228, 228, 228);
                                 margin: 0px 7px;
-                                margin-bottom: 40px;
+                                margin-bottom: 20px;
                                 position: relative;">   
 
                         {{ed.sectore}}
                    
 
                                         <a href="{{url_for('delet_educaiton', id=ed.education_id)}}">
-                                            <img src="{{ url_for('static', filename='images/remove.png') }}" alt="Example Image" width="10px" style="border-radius:0px;
+                                            <img src="{{ url_for('static', filename='images/remove2.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
                                               position: absolute;
                             top: 0px;  /* Adjust as needed */
                             right: 10px;  /* Adjust as needed */
@@ -184,7 +196,8 @@
                             border: none;
                             border: 1px solid gray;
                             cursor: pointer;
-                            background-color: gray;
+                            background-color: #da1e37;
+
                             border-radius: 10px;
                             margin-left: 5px;">    
 
@@ -193,10 +206,10 @@
                 {% endfor %}</div>
 
 
-
+                <center>
                 <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom: 20px;">
 
-
+              
                    
 
                     
@@ -224,14 +237,14 @@
                     
                     
            
-                {{educationForm.submit(class="btn btn-primary")}}
+                {{educationForm.submit(class="btn btn-primary")}}</center>
             </form>
 
 
-            <form novalidate method="POST" style="margin:30px;border: 1px solid gray;padding: 40px 100px;border-radius: 20px;padding-top: 100px;">
+            <form novalidate method="POST" style="margin:10px;border: 1px solid gray;padding: 20px 10px;border-radius: 20px;padding-top: 10px;">
 
                 {{ certificationForm.hidden_tag() }}
-                 <h4>Certificaions:</h4>
+                <H4 class="display-6" style="font-size: 25px;color: #5a189a;"><b>Certifications: </b></H4>
                                  <div style="display:flex;flex-direction: row;justify-content: center;margin: 15px ;">
 
                 {% for ce in current_certifications %}
@@ -243,14 +256,14 @@
                                 border-radius: 20px;
                                 background-color: rgb(228, 228, 228);
                                 margin: 0px 7px;
-                                margin-bottom: 40px;
+                                margin-bottom: 8px;
                                 position: relative;">   
 
                         {{ce.certification}}
                    
 
                                         <a href="{{url_for('delet_certificaiton', id=ce.certification_id)}}">
-                                            <img src="{{ url_for('static', filename='images/remove.png') }}" alt="Example Image" width="10px" style="border-radius:0px;
+                                            <img src="{{ url_for('static', filename='images/remove2.png') }}" alt="Example Image" width="15px" style="border-radius:0px;
                                               position: absolute;
                             top: 0px;  /* Adjust as needed */
                             right: 10px;  /* Adjust as needed */
@@ -258,7 +271,8 @@
                             border: none;
                             border: 1px solid gray;
                             cursor: pointer;
-                            background-color: gray;
+                            background-color: #da1e37;
+
                             border-radius: 10px;
                             margin-left: 5px;">    
 
@@ -266,7 +280,7 @@
 
                 {% endfor %}</div>
 
-
+                <center>
 
                 <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom: 20px;">
 
@@ -283,25 +297,16 @@
                     
                 
                     {{ certificationForm.certification_url(class="form-control CW", placeholder="certification url")}}
+                      {{ certificationForm.date_token(class="form-control CW")}}
                 </div>
-
-                <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;margin-bottom: 20px;">
-
-                
-
-                    {{ certificationForm.date_token(class="form-control CW")}}
-                    
-                  
-                </div>
-                    
                     
                     
            
-                {{certificationForm.submit(class="btn btn-primary")}}
+                {{certificationForm.submit(class="btn btn-primary")}}</center>
             </form>
+
         </div>
 
-    </center>
 
 
 {% endblock content %}

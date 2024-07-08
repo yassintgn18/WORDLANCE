@@ -29,6 +29,23 @@
         }
     </style>
 
+    <div style="background-color: rgb(255, 255, 255);
+                width: 50%; 
+                margin-left:100px;
+                border:1px solid #dee2e6;
+                border-radius: 10px;
+                padding:10px 10px;
+                margin-bottom: 30px;">
+
+        <h3 class="text-primary display-5"style="margin-top: 20px;margin-left: 30px;">Client Inforamtion:</h3><br>
+
+        <h3 class="text-primaryemphasis display-6"style="margin-left: 80px;margin-top: 0px;font-size: 20px;color: black;">Email: {{client.email}}</h3>
+        <h3 class="text-primaryemphasis display-6"style="margin-left: 80px;margin-top: 15px;font-size: 20px;color: black;">Full name: {{client.firstname}} {{client.lastname}}</h3>
+        <h3 class="text-primary-emphasis display-6"style="margin-left: 80px;margin-top: 15px;font-size: 20px;color: black;">Phone number: {{client.phone_num}}</h3>
+        <h3 class="text-primary-emphasis display-6"style="margin-left: 80px;margin-top: 15px;font-size: 20px;color: black;">Campany: {{client.company}}</h3>
+
+    </div>
+
     <div style="margin-left: 85px;background-color: rgb(255, 255, 255);width: 60%; padding: 20px 0px;margin-left:200px;border:1px solid gray;border-radius: 10px;padding:10px 30px;">
        
         <p style="padding-left: 20px;font-size: 13px; color: rgb(72, 69, 70);margin-bottom: 4px;padding-top: 0px;">Posted  {{job.date_posted.strftime('%Y-%m-%d')}}</p>
@@ -39,11 +56,45 @@
         <h5 style="padding-left: 24px; font-size: 18px;color: #;">Job budget: ${{job.budget}}</h5>
         <p style="padding-left: 24px;font-size: 20px">{{job.description}}</p>
 
-        <h5 style="margin-left: 20px;">Requare Skills:</h5>
+        <h5 style="margin-left: 20px;font-size: 25px;" class="display-6"><b>Requare Skills:</b></h5>
         <span style="display:flex;flex-direction: row;padding-left: 24px;">
-            <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);">data analyse </p>
-            <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p>
-            <p style="color:rgb(71, 64, 70);padding-right:10px;padding-left:10px;border: 2px solid rgb(228, 228, 228);border-radius: 20px;background-color: rgb(228, 228, 228);margin-left: 10px;">data analyse </p >
+
+            <p class="display-6" style="color:rgb(71, 64, 70);
+                                        padding-right:10px;
+                                        padding-left:10px;
+                                        border: 2px solid rgb(228, 228, 228);
+                                        border-radius: 20px;
+                                        background-color: rgb(228, 228, 228);
+                                        font-size: 19px;
+                                        padding-bottom: 0px;
+                                        padding-top: 0px;
+                                        height: 30px;margin-right: 10px;">
+            data analyse 
+            </p>
+
+              <p class="display-6" style="color:rgb(71, 64, 70);
+                                        padding-right:10px;
+                                        padding-left:10px;
+                                        border: 2px solid rgb(228, 228, 228);
+                                        border-radius: 20px;
+                                        background-color: rgb(228, 228, 228);
+                                        font-size: 19px;
+                                        padding-bottom: 0px;
+                                        padding-top: 0px;
+                                        height: 30px;margin-right: 10px;">
+            data analyse 
+            </p>   <p class="display-6" style="color:rgb(71, 64, 70);
+                                        padding-right:10px;
+                                        padding-left:10px;
+                                        border: 2px solid rgb(228, 228, 228);
+                                        border-radius: 20px;
+                                        background-color: rgb(228, 228, 228);
+                                        font-size: 19px;
+                                        padding-bottom: 0px;
+                                        padding-top: 0px;
+                                        height: 30px;margin-right: 10px;">
+            data analyse 
+            </p>
         </span>
 
         <h5 style="padding-left: 20px;font-size: 13px;color: rgb(72, 69, 70);">

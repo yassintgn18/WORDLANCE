@@ -84,7 +84,7 @@
 						       	<h4 style="padding:20px;padding-left: 0px;padding-bottom: 5px;color:  #212529;">{{user.firstname}} {{user.lastname}}</h4>
 						       	<span style="display:flex;flex-direction: row;justify-content: center;align-items: center;">
 						       		<img src="{{ url_for('static', filename='images/gps.png') }}" alt="Example Image" width="24px" height="24px"  style="margin-right: 10px;"> 
-						       		<P style="margin: 0px;margin-left: 0px;color: #495057;">{{user.address}} – 6:14 pm local time</P>
+						       		<P style="margin: 0px;margin-left: 0px;color: #495057;">{{user.address}} – <span id="local-time"></span> local tim</P>
 						       	</span>
 
 						    	</span>
@@ -117,7 +117,11 @@
 					{{user.self_intro}}
 				</p>
 				<hr>
-				<h5 style="padding-left:35px;color: rgb(106, 76, 147);font-size: 25px;padding-top: 20px;color: #343a40;">Skills:</h5>
+                <H4 class="display-6" style="font-size: 25px;color: #343a40;padding-left:35px;font-size: 25px;padding-top: 20px;	">
+                	<b>Skills: </b>
+                </H4>
+
+
 				<div style="padding: 40px;padding-top: 0;display: flex;flex-direction: row;">
 					{% for s in skills %}
 						<p style="font-size: 18px;border: 2px solid gray;padding: 3px 18px;margin: 0px 5px;border: 2px solid rgb(233, 233, 233);border-radius: 30px;background-color: rgb(233, 233, 233);padding-bottom: 4px;color: rgb(103, 103, 103);" class="display-5"> 
@@ -147,6 +151,25 @@
 			</div>
 		</div>
 	</div>
+
+	    <script>
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            const strTime = hours + ':' + minutes + ' ' + ampm;
+
+            document.getElementById('local-time').textContent = strTime;
+        }
+
+        // Update time immediately and then every minute
+        updateTime();
+        setInterval(updateTime, 60000);
+    </script>
 			
 
 

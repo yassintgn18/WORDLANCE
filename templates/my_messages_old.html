@@ -146,21 +146,24 @@
 
              <ul style="max-width:300px;position: absolute;left: 30px;top: 210px;color: black;z-index: 10;">
                     {% for u in users_search%}
-                            <!-- <li>
-                                {{u.email}}
-                            </li>-->
+                        {% if not u.id == current_user.id %}
+
+                                <!-- <li>
+                                    {{u.email}}
+                                </li>-->
 
 
-                              <li class="user">
-                                <div style="background-color: purple; border-radius: 10px;">
-                                    <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;">
-                                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-                                            <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
-                                            <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
+                                  <li class="user">
+                                    <div style="background-color: purple; border-radius: 10px;">
+                                        <a href="{{url_for('convirsation', receiver_id= u.id)}}" style="text-decoration: none;">
+                                            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+                                                <h5 class="user_name" style="margin: 0;text-shadow: none;">{{u.email}}</h5>
+                                                <p class="timestamp2" style="margin: 0;text-shadow: none;">10:45</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endif %}
                     {% endfor %} 
 
                 </ul>

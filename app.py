@@ -356,7 +356,6 @@ def jobs_i_apply_for():
     else:
         return render_template("jobs_i_apply_for.html")
 
-
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
 def Gloabalsearch():
@@ -409,11 +408,6 @@ def Gloabalsearch():
 
     return render_template("search.html", form=form, results=results)
 
-# Note: Make sure the model names and field names are accurate based on your actual models.
-
-
-
-
 @app.route('/remove_job/<int:id>/<int:job_id>', methods=['GET', 'POST'])
 @login_required
 def remove_job(id, job_id):
@@ -437,9 +431,6 @@ def remove_job(id, job_id):
         flash("Whoops! Something went wrong: {}".format(e))
     
     return redirect(url_for('jobs_i_apply_for'))
-
-
-
 
 @app.route('/update_user/<int:id>/<int:foc>', methods=['GET', 'POST'])
 @login_required
@@ -637,25 +628,18 @@ def delet_educaiton(id):
     login = True
     return redirect(url_for('update', id=current_user.id, foc =1) )
 
-
-
-
-
-
-
-
 @app.route('/job_inforamtion/<int:job_id>', methods=['GET', 'POST'])
 @login_required
 def job_inforamtion(job_id):
     job = joboffers.query.get_or_404(job_id)
+    client = clients.query.filter(clients.id == job.id).first()
+
     
     login = True
-    return render_template("job_inforamtion.html", job = job,
-    login=login)
-
-
-
-
+    return render_template("job_inforamtion.html", 
+        job = job,
+        login=login,
+        client=client)
 
 @app.route('/delet_ceretificaion/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -669,7 +653,6 @@ def delet_certificaiton(id):
         flash("whoops! somthing went worng.")    
     login = True
     return redirect(url_for('update', id=current_user.id, foc =1) )
-
 
 #Create Job offer Page
 @app.route('/job_offer/<int:id>/', methods=['GET', 'POST'])
@@ -867,14 +850,7 @@ def apply_for_job(job_id):
     except:
         flash("somthing went wrong!!!")
         return redirect(url_for('home1'))
-
-
-
-
-  
-
-
-    
+ 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
     
